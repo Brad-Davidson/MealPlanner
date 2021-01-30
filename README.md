@@ -8,7 +8,7 @@ This app will give you a variety of different recipes to choose from depending o
 
 ## Storyboard
 
-https://user-images.githubusercontent.com/65302404/106343773-105a9680-6275-11eb-8c60-54820fa60255.jpg
-https://user-images.githubusercontent.com/65302404/106343774-118bc380-6275-11eb-910e-0738656c8017.jpg
-https://user-images.githubusercontent.com/65302404/106343776-13ee1d80-6275-11eb-8fcb-6fa73de2c274.jpg
-https://user-images.githubusercontent.com/65302404/106343777-13ee1d80-6275-11eb-8c0b-40fc4edc7147.jpg
+![category page](https://user-images.githubusercontent.com/65302404/106343773-105a9680-6275-11eb-8c60-54820fa60255.jpg)
+![meal schedule](https://user-images.githubusercontent.com/65302404/106343774-118bc380-6275-11eb-910e-0738656c8017.jpg)
+![recipe list](https://user-images.githubusercontent.com/65302404/106343776-13ee1d80-6275-11eb-8fcb-6fa73de2c274.jpg)
+![shoping list](https://user-images.githubusercontent.com/65302404/106343777-13ee1d80-6275-11eb-8c0b-40fc4edc7147.jpg)

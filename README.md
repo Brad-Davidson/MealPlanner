@@ -49,9 +49,10 @@ Recipes are named consistently
 
 **Then** I should receive at least one result with these attributes:
 
-	- Recipe: Any involving garlic
-	- Ingredients: garlic
-	- Time to prepare: Varies by recipe
+- Recipe: Any involving garlic
+- Ingredients: garlic
+- Time to prepare: Varies by recipe
+
 **1.3**
 
 **Given** a feed of recipe data is available
@@ -117,4 +118,15 @@ Ingredients can be consolidated easily, so one ingredient is not listed twice in
 
 **Ingredients**: Totals combined from all planned recipes for the week
 
+## Scrum Roles
 
+- DevOps/Product Owner/Scrum Master: Bradley Davidson
+- Front End: Jacob Rinehardt
+- Integration Specialists: Joshua Bodenstein & Jacob Gormly
+
+## Weekly Meeting
+
+Tuesday at 4:30 PM. Use this link teams meeting link:
+
+Meeting Information
+[Teams Meeting](https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmUyNjY3MTctZTY1Ny00NjFjLThlNjQtY2UzMWUzZjAzYjFm%40thread.v2/0?context=%7b%22Tid%22%3a%22f5222e6c-5fc6-48eb-8f03-73db18203b63%22%2c%22Oid%22%3a%22684f904f-b75c-4fec-8ab6-78adff6e71ee%22%7d)

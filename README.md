@@ -18,41 +18,103 @@ This app will give you a variety of different recipes to choose from depending o
 ## Functional Requirements
 ---
 
-###Requirement 100.0: Search for recipes and plan meals
-####SCENARIO
-As a user interested in planning meals, I want to be able to search for recipes based on any part of the recipe; name of ingredient and name of meal I want to end up with. Users should be able to enter recipe into a meal planner to put together a weekly grocery list.
-####DEPENDENCIES
+### Requirement 100.0: Search for recipes
+#### SCENARIO
+As a user interested in planning meals, I want to be able to search for recipes based on any part of the recipe; name of ingredient or name of meal I want to end up with.
+#### DEPENDENCIES
 Ingredient and recipe search data are available and easily accessible
+#### ASSUMPTIONS
+Recipes are listed in English
+Recipes are named consistently
+#### EXAMPLES
+**1.1**
+
+**Given** a feed of recipe data is available
+
+**When** I search for ‘pizza’
+
+**Then** I should receive at least one result with these attributes:
+
+**Recipe**: Pizza
+
+**Ingredients**: Flour, pepperoni, cheese
+
+**Time to prepare**: 45 minutes (varies by kind of pizza)
+
+**1.2**
+
+**Given** a feed of recipe data is available
+
+**When** I search for ‘garlic’
+
+**Then** I should receive at least one result with these attributes:
+
+	- Recipe: Any involving garlic
+	- Ingredients: garlic
+	- Time to prepare: Varies by recipe
+**1.3**
+
+**Given** a feed of recipe data is available
+
+**When** I search for ‘askjhsdkjfbsjkdlbfvouihhjklukljh’
+
+**Then** I should receive zero results.
+
+
+### Requirement 101.0: Save recipes into planner
+#### SCENARIO
+As a user that has pulled search results for recipes, I would like to save recipes to a meal slot during the week.
+#### DEPENDENCIES
+Ingredient and recipe search data are available and easily accessible
+All recipes can be slotted into a meal during the week (breakfast, lunch, or dinner)
+#### ASSUMPTIONS
+Ingredients are quantified consistently (i.e., garlic measure in cloves, pepperoni measured in pieces)
+#### EXAMPLES
+**2.1**
+
+**Given** a feed of recipe data is available and I have found a recipe I want to make
+
+**When** I want to plan the recipe for a meal slot during the week
+
+**Then** I should be able to put a recipe in a planner for ‘Breakfast’, ‘lunch’, or ‘dinner’ on specified day of week
+
+**Recipe**: Varies by recipe
+
+**Ingredients**: Varies by recipe
+
+**Time to prepare**: Varies by recipe
+
+**Button**: Add to planner, specify day of week and what meal it is for (breakfast lunch or dinner)
+
+**2.1**
+
+**Given** a feed of recipe data is available and I have found a recipe I want to make
+
+**When** I want to plan the recipe for a meal slot on a day that has already passed
+
+**Then** I should receive an error preventing me to plan a meal that day
+
+### Requirement 102.0: Retrieve shopping list of ingredients
+#### SCENARIO
+As a user interested in planning meals, I want to be able to use my week of planned recipes and compile a shopping list
+#### DEPENDENCIES
+Ingredient and recipe search data are available and easily accessible
+Week of planned meals has data stored
 All recipes can be slotted into a meal during the week (breakfast, lunch, or dinner) and be
 compiled together into a grocery list
-####ASSUMPTIONS
+#### ASSUMPTIONS
 Ingredients are quantified consistently (i.e., garlic measure in cloves, pepperoni measured in pieces)
 All recipes have a ‘time to prepare’ associated with them
-####EXAMPLES
-**1.1**
-**Given** a feed of recipe data is available
-**When** I search for ‘pizza’
-**Then** I should receive at least one result with these attributes:	
-**Recipe**: Pizza
-**Ingredients**: Flour, pepperoni, cheese
-**Time to prepare**: 45 minutes
- 
-**1.2**
-Given a feed of recipe data is available
-When I search for ‘garlic’
-Then I should receive at least one result with these attributes:
-	Recipe: Any involving garlic
-	Ingredients: garlic
-	Time to prepare: Varies by recipe
-**1.3**
-**Given** a feed of recipe data is available and I have found a recipe I want to make
-**When** I want to plan the recipe for a meal slot during the week
-**Then** I should be able to put a recipe in a planner
-**Recipe**: Varies by recipe
-**Ingredients**: Varies by recipe
-**Time to prepare**: Varies by recipe
-**Optional check-box**: Add to planner, specify day of week and what meal it is for (breakfast lunch or dinner)
-**1.4**
-**Given** a feed of recipe data is available
-**When** I search for ‘askjhsdkjfbsjkdlbfvouihhjklukljh’
-**Then** I should receive zero results.
+Ingredients can be consolidated easily, so one ingredient is not listed twice in different amounts because the app could not combine them
+#### EXAMPLES
+**3.1**
+
+**Given** a feed of recipe data is available, I have found a recipe I want to make, and it is put in a meal slot during the week.
+
+**When** I want to know what ingredients to buy
+
+**Then** I should be able to put a shopping list together based on ingredients listed in the saved recipe
+
+**Ingredients**: Totals combined from all planned recipes for the week
+
+

@@ -84,7 +84,7 @@ Ingredients are quantified consistently (i.e., garlic measure in cloves, peppero
 
 **Button**: Add to planner, specify day of week and what meal it is for (breakfast lunch or dinner)
 
-**2.1**
+**2.2**
 
 **Given** a feed of recipe data is available and I have found a recipe I want to make
 

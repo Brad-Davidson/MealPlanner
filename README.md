@@ -118,6 +118,32 @@ Ingredients can be consolidated easily, so one ingredient is not listed twice in
 
 **Ingredients**: Totals combined from all planned recipes for the week
 
+## Class Diagram
+![class diagram](https://user-images.githubusercontent.com/65302404/106375414-ceefe700-6359-11eb-8fcf-1da52c8c7195.PNG)
+
+## Class Diagram Description
+
+**MainScreen**: The screen that comes up when the app is started. This will have a a list of the various recipes the user can select.
+
+**RecipeDetails**: A screen that shows details of an recipe.
+
+**MealPlanDetails**: A screen that shows the shopping list story of the user.
+
+**RetrofitInstance**: Boostrap class required for Retrofit.
+
+**Recipe**: Noun class that represents a recipe.
+
+**Ingredient**: Noun class that represents an ingredient.
+
+**MealPlan**: Noun class that represents a meal plan.
+
+**IRecipeDAO**: Interface for Retrofit to find and parse Recipe JSON.
+
+**IIngredientDAO**: Interface for MealPlan to persist Ingredient data.
+
+**IMealPlanDAO**: Interface for MealPlan to persist MealPlan data.
+
+
 ## Scrum Roles
 
 - DevOps/Product Owner/Scrum Master: Bradley Davidson

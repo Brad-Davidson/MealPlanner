@@ -1,4 +1,4 @@
-package com.example.mealplanner
+package com.main.mealplanner
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

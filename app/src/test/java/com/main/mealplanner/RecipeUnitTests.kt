@@ -2,7 +2,6 @@ package com.main.mealplanner
 
 import androidx.lifecycle.MutableLiveData
 import org.junit.Test
-import com.main.mealplanner.dto.
 import com.main.mealplanner.dto.Recipe
 import org.junit.Assert.*
 import io.mockk.confirmVerified
@@ -39,8 +38,43 @@ class RecipeUnitTests {
     }
 
     @Test
-    fun searchForGarbage_returnsNothing(){
+    fun confirmSpaghetti_outputsSpaghetti(){
+        var spaghetti = Recipe("Spaghetti", "Italian", 1700, "Spaghetti Sauce, Spaghetti, Salt, Meatballs", "Cook Spaghetti", 10)
+        assertEquals("Spaghetti", spaghetti.Meal)
+    }
 
+    @Test
+    fun searchForSpaghetti_returnsSpaghetti(){
+        givenAFeedOfMockedRecipeDataAvailable()
+        mvm.fetchRecipe("Spaghetti")
+        thenResultsContainSpaghetti()
+        verify {recipeService.fetchRecipe("Spaghetti")}
+        confirmVerified(recipeService)
+    }
+    private fun thenResultsContainSpaghetti(){
+        var spaghettiFound = false;
+        mvm.recipes.observeForever {
+            assertNotNull(it)
+            assertTrue(it.size > 0)
+            it.forEach {
+                if (it.Meal == "Spaghetti" && it.Country == "Italian" && it.RecipeId == 10){
+                    spaghettiFound = true;
+                }
+            }
+        }
+        assertTrue(spaghettiFound)
+    }
+
+    @Test
+    fun searchForGarbage_returnsNothing(){
+        givenAFeedOfMockedRecipeDataAvailable()
+        mvm.fetchRecipe("aslkjgaoh")
+        thenIGetNoResults()
+    }
+    private fun thenIGetNoResults(){
+        mvm.recipes.observeForever {
+            assertEquals(0, it.size)
+        }
     }
 
 }

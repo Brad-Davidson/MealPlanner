@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 @Entity(tableName="mealplan")
-data class MealPlan(var CookSchedule: Date, var RecipeId : String, var OwnerID : String, @PrimaryKey @SerializedName("id") var MealPlanId:Int = 0) {
+data class MealPlan(var CookSchedule: Date, var RecipeId : String, var OwnerEmail : String, @PrimaryKey @SerializedName("id") var MealPlanId:Int = 0) {
     override fun toString(): String {
         return "Cook Recipe #" + RecipeId + " at " + CookSchedule.toString()
     }

@@ -10,9 +10,8 @@ import com.main.mealplanner.RetrofitClientInstance
 import com.main.mealplanner.dao.IRecipeDAO
 import com.main.mealplanner.dao.IIngredientDAO
 import com.main.mealplanner.dao.IMealPlanDAO
-import com.main.mealplanner.dao.IMealPlanDAO
 import com.main.mealplanner.dto.MealPlan
-import kotlinx.coroutines.*
+import kotlin.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,7 +24,7 @@ class MealPlanService(application: Application) {
             val service = RetrofitClientInstance.retrofitInstance?.create(IMealPlanDAO::class.java)
             val mealplans = async {service?.getAllMealPlans()}
 
-            updateMealPlans(mealplans.await())
+            this.updateMealPlans(mealplans.await())
 
         }
     }
@@ -39,7 +38,7 @@ class MealPlanService(application: Application) {
             var MealPlanDAO = getMealPlanDAO()
             MealPlanDAO.insertAll(mealplans!!)
         }catch (e: Exception) {
-            Log.e(TAG, e.message)
+            e.message?.let { Log.e(TAG, it) }
         }
 
     }

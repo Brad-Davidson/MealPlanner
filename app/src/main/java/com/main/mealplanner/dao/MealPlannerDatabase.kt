@@ -6,4 +6,5 @@ import com.main.mealplanner.dto.MealPlan
 
 @Database(entities=arrayOf(MealPlan::class), version = 1)
 abstract  class MealPlannerDatabase : RoomDatabase() {
-    abstract fun mealPlanDAO() : IMealPlanDAO
+    abstract fun mealPlanDAO(): IMealPlanDAO
+}

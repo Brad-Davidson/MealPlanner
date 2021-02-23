@@ -11,7 +11,7 @@ interface IIngredientDAO {
     fun getAllIngredients()  : LiveData<List<Ingredient>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(ingredients: ArrayList<Ingedient>)
+    fun insertAll(ingredients: ArrayList<Ingredient>)
 
     @Delete
     fun delete(ingredient: Ingredient)

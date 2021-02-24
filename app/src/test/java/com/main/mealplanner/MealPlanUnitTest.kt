@@ -38,9 +38,15 @@ class MealPlanUnitTest {
     }
 
     @Test(expected = InvalidParameterException::class)
-    fun confirmMealPlan_setTime(){
+    fun confirmMealPlan_setInvalidTime(){
         var mealPlan = MealPlan( Date(), "1", "Brad", 1 )
         mealPlan.setTime(Date(2000,1,1))
+    }
+
+    @Test
+    fun confirmMealPlan_setTime(){
+        var mealPlan = MealPlan( Date(), "1", "Brad", 1 )
+        mealPlan.setTime(Date(2030, 1, 1))
     }
 
 }

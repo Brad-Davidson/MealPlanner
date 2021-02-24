@@ -10,6 +10,7 @@ import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
+import java.security.InvalidParameterException
 import java.util.*
 
 class MealPlanUnitTest {
@@ -30,15 +31,16 @@ class MealPlanUnitTest {
 
         mvm.mealPlanService = mealPlanService
     }
-
     @Test
     fun confirmMealPlan_outputsPlan(){
         var mealPlan = MealPlan(Date(2000, 1, 1), "1", "Brad", 1 )
         Assert.assertEquals("Cook Recipe # 1 at Thu Feb 01 00:00:00 UTC 3900", mealPlan.toString())
     }
 
-    @Test
-    fun addRecipeToMealPlan(){
-
+    @Test(expected = InvalidParameterException::class)
+    fun confirmMealPlan_setTime(){
+        var mealPlan = MealPlan( Date(), "1", "Brad", 1 )
+        mealPlan.setTime(Date(2000,1,1))
     }
+
 }

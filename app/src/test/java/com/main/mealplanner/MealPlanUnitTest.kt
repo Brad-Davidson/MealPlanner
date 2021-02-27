@@ -19,6 +19,7 @@ class MealPlanUnitTest {
     var rule: TestRule = InstantTaskExecutorRule()
     lateinit var mvm:MainViewModel
 
+    /*
     var mealPlanService = mockk<MealPlanService>();
 
     private fun createMockData(){
@@ -31,6 +32,8 @@ class MealPlanUnitTest {
 
         mvm.mealPlanService = mealPlanService
     }
+     */
+
     @Test
     fun confirmMealPlan_outputsPlan(){
         var mealPlan = MealPlan(Date(2000, 1, 1), "1", "Brad", 1 )

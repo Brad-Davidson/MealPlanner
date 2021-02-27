@@ -3,6 +3,7 @@ package com.main.mealplanner
 import androidx.lifecycle.MutableLiveData
 import org.junit.Test
 import com.main.mealplanner.dto.Recipe
+import com.main.mealplanner.service.RecipeService
 import org.junit.Assert.*
 import io.mockk.confirmVerified
 import io.mockk.every
@@ -13,17 +14,17 @@ import org.junit.rules.TestRule
 
 class RecipeUnitTests {
 
-    var recipeService = mockk<RecipeService>();
+    //var recipeService = mockk<RecipeService>();
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
     lateinit var mvm:MainViewModel
 
-    private fun givenAFeedOfMockedRecipeDataAvailable(){
+    private fun givenAFeedOfRecipeDataAvailable(){
         mvm = MainViewModel()
-        createMockData()
     }
 
+    /*
     //creates some dummy data
     private fun createMockData(){
         var allRecipeLiveData = MutableLiveData<ArrayList<Recipe>>()
@@ -36,6 +37,7 @@ class RecipeUnitTests {
         every {recipeService.fetchRecipe(not("Spaghetti"))} returns MutableLiveData<ArrayList<Recipe>>()
         mvm.recipeService = recipeService
     }
+     */
 
     @Test
     fun confirmSpaghetti_outputsSpaghetti(){
@@ -45,11 +47,11 @@ class RecipeUnitTests {
 
     @Test
     fun searchForSpaghetti_returnsSpaghetti(){
-        givenAFeedOfMockedRecipeDataAvailable()
+        givenAFeedOfRecipeDataAvailable()
         mvm.fetchRecipe("Spaghetti")
         thenResultsContainSpaghetti()
-        verify {recipeService.fetchRecipe("Spaghetti")}
-        confirmVerified(recipeService)
+        verify {mvm.fetchRecipe("Spaghetti")}
+        confirmVerified()
     }
     private fun thenResultsContainSpaghetti(){
         var spaghettiFound = false;

@@ -1,12 +1,13 @@
 package com.main.mealplanner
 
 import androidx.lifecycle.MutableLiveData
-import com.main.mealplanner.dto.Recipe
+import androidx.lifecycle.ViewModel
+import com.main.mealplanner.dto.RecipeHeader
 import com.main.mealplanner.service.RecipeService
 
-class MainViewModel {
+class MainViewModel : ViewModel() {
 
-    var recipes: MutableLiveData<ArrayList<Recipe>> = MutableLiveData()
+    var recipes: MutableLiveData<ArrayList<RecipeHeader>> = MutableLiveData()
     var recipeService: RecipeService = RecipeService()
 
     fun fetchRecipe(s: String) {

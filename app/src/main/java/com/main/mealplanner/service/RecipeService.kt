@@ -3,17 +3,19 @@ package com.main.mealplanner.service
 import androidx.lifecycle.MutableLiveData
 import com.main.mealplanner.RetrofitClientInstance
 import com.main.mealplanner.dao.IRecipeDAO
-import com.main.mealplanner.dto.Recipe
+import com.main.mealplanner.dto.RecipeHeader
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.util.Log
+import com.main.mealplanner.dto.RecipeList
 
 class RecipeService {
-    fun fetchRecipe(meal: String) : MutableLiveData<ArrayList<Recipe>> {
-        var _recipes = MutableLiveData<ArrayList<Recipe>>()
+    fun fetchRecipe(meal: String) : MutableLiveData<ArrayList<RecipeHeader>> {
+        var _recipes = MutableLiveData<ArrayList<RecipeHeader>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IRecipeDAO::class.java)
-        val call = service?.fetchAllRecipes()
-        call?.enqueue(object: Callback<ArrayList<Recipe>> {
+        val call = service?.getAllRecipes()
+        call?.enqueue(object: Callback<RecipeList> {
             /**
              * Invoked for a received HTTP response.
              *
@@ -22,19 +24,18 @@ class RecipeService {
              * Call [Response.isSuccessful] to determine if the response indicates success.
              */
             override fun onResponse(
-                call: Call<ArrayList<Recipe>>,
-                response: Response<ArrayList<Recipe>>
+                    call: Call<RecipeList>,
+                    response: Response<RecipeList>
             ) {
-                _recipes.value = response.body()
+                _recipes.value = response.body()?.meals
             }
 
             /**
              * Invoked when a network exception occurred talking to the server or when an unexpected
              * exception occurred creating the request or processing the response.
              */
-            override fun onFailure(call: Call<ArrayList<Recipe>>, t: Throwable) {
-                val j = 1 + 1
-                val i = 1 + 1
+            override fun onFailure(call: Call<RecipeList>, t: Throwable) {
+                Log.d("TAG", t.message.toString())
             }
 
         })

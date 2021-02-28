@@ -35,7 +35,17 @@ class MainFragment: Fragment(){
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.fetchAllRecipes()
         viewModel.recipes.observe(this, Observer {
-            recipes -> rcpSearch.setAdapter(ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, recipes))
+            recipes ->
+                rcpSearch.setAdapter(
+                    ArrayAdapter(
+                        context!!,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        recipes
+                    )
+                )
+                lstRecipes.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipes)
+
         })
+
     }
 }

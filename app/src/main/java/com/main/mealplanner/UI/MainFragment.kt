@@ -18,17 +18,16 @@ class MainFragment: Fragment(){
     private lateinit var viewModel: MainViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?     ):
-            View {
+        savedInstanceState: Bundle?
+    ): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.recipes.observe(viewLifecycleOwner, Observer{
+        viewModel.recipes.observe(this, Observer{
             //todo implement list
         })
-
 
     }
 }

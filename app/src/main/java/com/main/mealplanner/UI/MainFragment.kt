@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
 import com.main.mealplanner.MainViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.main.mealplanner.R
 
 class MainFragment: Fragment(){
@@ -23,10 +24,11 @@ class MainFragment: Fragment(){
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.recipes.observe(viewLifecycleOwner, Observer{
+            //todo implement list
+        })
 
 
     }
-
 }

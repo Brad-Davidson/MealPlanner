@@ -43,6 +43,7 @@ class MainFragment: Fragment(){
                         recipes
                     )
                 )
+
                 lstRecipes.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipes)
 
         })

@@ -17,6 +17,6 @@
         android:id="@+id/rcyRecipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="254dp" />
+        tools:layout_editor_absoluteX="-101dp"
+        tools:layout_editor_absoluteY="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

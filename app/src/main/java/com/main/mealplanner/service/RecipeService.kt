@@ -35,7 +35,7 @@ class RecipeService {
              * exception occurred creating the request or processing the response.
              */
             override fun onFailure(call: Call<RecipeList>, t: Throwable) {
-                Log.d("TAG", t.message.toString())
+                Log.d("Recipe Service.kt Error", t.message.toString())
             }
 
         })

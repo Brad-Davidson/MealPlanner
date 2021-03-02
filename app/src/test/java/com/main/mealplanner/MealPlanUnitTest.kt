@@ -33,7 +33,7 @@ class MealPlanUnitTest {
         mvm.mealPlanService = mealPlanService
     }
      */
-
+App
     @Test
     fun confirmMealPlan_outputsPlan(){
         var mealPlan = MealPlan(Date(2000, 1, 1), "1", "Brad", 1 )

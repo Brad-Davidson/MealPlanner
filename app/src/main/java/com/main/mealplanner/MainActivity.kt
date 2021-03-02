@@ -10,15 +10,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainFragment: MainFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainFragment = MainFragment.newInstance()
+        mainFragment = MainFragment()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainFragment = MainFragment.newInstance()
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container,mainFragment)
                 .commitNow()
         }
-
     }
 }

@@ -1,21 +1,21 @@
 package com.main.mealplanner.service
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.main.mealplanner.RetrofitClientInstance
 import com.main.mealplanner.dao.IRecipeDAO
 import com.main.mealplanner.dto.RecipeHeader
+import com.main.mealplanner.dto.RecipeList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.util.Log
-import com.main.mealplanner.dto.RecipeList
 
 class RecipeService {
-    fun fetchRecipe(meal: String) : MutableLiveData<ArrayList<RecipeHeader>> {
+    fun fetchRecipe(meal: String): MutableLiveData<ArrayList<RecipeHeader>> {
         var _recipes = MutableLiveData<ArrayList<RecipeHeader>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IRecipeDAO::class.java)
         val call = service?.getAllRecipes()
-        call?.enqueue(object: Callback<RecipeList> {
+        call?.enqueue(object : Callback<RecipeList> {
             /**
              * Invoked for a received HTTP response.
              *
@@ -24,8 +24,8 @@ class RecipeService {
              * Call [Response.isSuccessful] to determine if the response indicates success.
              */
             override fun onResponse(
-                    call: Call<RecipeList>,
-                    response: Response<RecipeList>
+                call: Call<RecipeList>,
+                response: Response<RecipeList>
             ) {
                 _recipes.value = response.body()?.meals
             }
@@ -35,7 +35,7 @@ class RecipeService {
              * exception occurred creating the request or processing the response.
              */
             override fun onFailure(call: Call<RecipeList>, t: Throwable) {
-                Log.d("TAG", t.message.toString())
+                Log.d("RecipeService Error", t.message.toString())
             }
 
         })

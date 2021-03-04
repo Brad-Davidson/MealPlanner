@@ -10,10 +10,11 @@ class MainViewModel : ViewModel() {
     var recipes: MutableLiveData<ArrayList<RecipeHeader>> = MutableLiveData()
     var recipeService: RecipeService = RecipeService()
 
-    fun fetchRecipe(s: String) {
-        recipes = recipeService.fetchRecipe(s)
+    fun fetchRecipe(meal: String) {
+        recipes = recipeService.fetchRecipe(meal)
     }
-    fun fetchAllRecipes(){
+
+    fun fetchAllRecipes() {
         recipes = recipeService.fetchRecipe("")
     }
 

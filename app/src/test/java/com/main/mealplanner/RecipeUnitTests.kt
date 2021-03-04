@@ -73,6 +73,11 @@ class RecipeUnitTests {
         mvm.fetchRecipe("aslkjgaoh")
         thenIGetNoResults()
     }
+
+    private fun givenAFeedOfMockedRecipeDataAvailable() {
+        TODO("Not yet implemented")
+    }
+
     private fun thenIGetNoResults(){
         mvm.recipes.observeForever {
             assertEquals(0, it.size)

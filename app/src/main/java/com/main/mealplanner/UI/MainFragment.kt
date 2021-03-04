@@ -2,7 +2,6 @@ package com.main.mealplanner.UI
 
 import android.app.usage.UsageEvents
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.main.mealplanner.R
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.ArrayList

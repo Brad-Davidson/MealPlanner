@@ -1,22 +1,10 @@
 package com.main.mealplanner.service
 
 import android.app.Application
-import android.content.ContentValues.TAG
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.room.Room
-import com.main.mealplanner.RetrofitClientInstance
-import com.main.mealplanner.dao.IRecipeDAO
-import com.main.mealplanner.dao.IIngredientDAO
-import com.main.mealplanner.dao.IMealPlanDAO
-import com.main.mealplanner.dto.MealPlan
-import kotlin.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class
 MealPlanService(application: Application) {
+    // TODO() Take out / Replace commented Code
 //    private val application = application
 //
 //    internal suspend fun fetchMealPlans(MealPlanId: String) {

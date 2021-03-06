@@ -1,6 +1,9 @@
 package com.main.mealplanner.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import com.main.mealplanner.dto.RecipeHeader
 import com.main.mealplanner.dto.RecipeList
 import retrofit2.Call
@@ -10,7 +13,7 @@ import retrofit2.http.GET
 interface IRecipeDAO {
 
     @GET("filter.php?i=")
-    fun getAllRecipes() : Call<RecipeList>
+    fun getAllRecipes(): Call<RecipeList>
 
 
     //@Query("SELECT * FROM Recipe")

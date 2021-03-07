@@ -11,11 +11,11 @@ import android.util.Log
 import com.main.mealplanner.dto.RecipeList
 
 class RecipeService {
-    fun fetchRecipe(meal: String) : MutableLiveData<ArrayList<RecipeHeader>> {
+    fun fetchRecipe(meal: String): MutableLiveData<ArrayList<RecipeHeader>> {
         var _recipes = MutableLiveData<ArrayList<RecipeHeader>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IRecipeDAO::class.java)
         val call = service?.getAllRecipes()
-        call?.enqueue(object: Callback<RecipeList> {
+        call?.enqueue(object : Callback<RecipeList> {
             /**
              * Invoked for a received HTTP response.
              *
@@ -24,8 +24,8 @@ class RecipeService {
              * Call [Response.isSuccessful] to determine if the response indicates success.
              */
             override fun onResponse(
-                    call: Call<RecipeList>,
-                    response: Response<RecipeList>
+                call: Call<RecipeList>,
+                response: Response<RecipeList>
             ) {
                 _recipes.value = response.body()?.meals
             }

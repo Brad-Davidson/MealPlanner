@@ -1,8 +1,7 @@
 package com.main.mealplanner
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
+import androidx.appcompat.app.AppCompatActivity
 import com.main.mealplanner.UI.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         mainFragment = MainFragment.newInstance()
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container,mainFragment)
+                .replace(R.id.container, mainFragment)
                 .commitNow()
         }
 

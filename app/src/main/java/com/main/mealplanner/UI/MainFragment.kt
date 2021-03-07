@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.main.mealplanner.R
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.ArrayList

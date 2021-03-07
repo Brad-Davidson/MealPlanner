@@ -10,7 +10,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainFragment: MainFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainFragment = MainFragment.newInstance()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainFragment = MainFragment.newInstance()

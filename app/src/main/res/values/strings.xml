@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name" >MealPlanner
     </string>
+    <string name="shoppingListPage">ShoppingList Page</string>
+    <string name="categories">Categories</string>
+    <string name="schedule">Schedule</string>
+    <string name="selectaRecipe">Select a Recipe</string>
 </resources>

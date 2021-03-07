@@ -10,11 +10,7 @@ import retrofit2.http.GET
 interface IRecipeDAO {
 
     @GET("filter.php?i=")
-    fun getAllRecipes() : Call<RecipeList>
-
-
-    //@Query("SELECT * FROM Recipe")
-    //fun getAllRecipes()  : LiveData<List<Recipe>>
+    fun getAllRecipes(): Call<RecipeList>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(recipeHeaders: ArrayList<RecipeHeader>)

@@ -13,7 +13,8 @@ class MainViewModel : ViewModel() {
     fun fetchRecipe(s: String) {
         recipes = recipeService.fetchRecipe(s)
     }
-    fun fetchAllRecipes(){
+
+    fun fetchAllRecipes() {
         recipes = recipeService.fetchRecipe("")
     }
 

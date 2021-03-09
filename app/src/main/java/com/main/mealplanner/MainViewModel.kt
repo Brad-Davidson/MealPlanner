@@ -9,11 +9,18 @@ class MainViewModel : ViewModel() {
 
     var recipes: MutableLiveData<ArrayList<RecipeHeader>> = MutableLiveData()
     var recipeService: RecipeService = RecipeService()
+    lateinit var firestore : FirebaseFirestore
     
     init {
         fetchRecipes(name: "e")
             firestore = FirebaseFirestore.getInstance()
             firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+            listenToRecipes()
+    }
+    
+    private fun listenToRecipes() {
+    }
+    
 
     fun fetchRecipe(s: String) {
         recipes = recipeService.fetchRecipe(s)

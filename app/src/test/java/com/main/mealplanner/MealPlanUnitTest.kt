@@ -1,11 +1,7 @@
 package com.main.mealplanner
 
-import androidx.lifecycle.MutableLiveData
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.main.mealplanner.dto.MealPlan
-import com.main.mealplanner.dto.Recipe
-import com.main.mealplanner.service.MealPlanService
-import io.mockk.every
-import io.mockk.mockk
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -18,21 +14,6 @@ class MealPlanUnitTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
     lateinit var mvm:MainViewModel
-
-    /*
-    var mealPlanService = mockk<MealPlanService>();
-
-    private fun createMockData(){
-        var allMealPlanLiveData = MutableLiveData<ArrayList<MealPlan>>()
-        var allMealPlans = ArrayList<MealPlan>()
-
-        var mealPlan = MealPlan(Date(2000, 1, 1), "1", "Brad", 1 )
-        allMealPlans.add((mealPlan))
-        allMealPlanLiveData.postValue(allMealPlans)
-
-        mvm.mealPlanService = mealPlanService
-    }
-     */
 
     @Test
     fun confirmMealPlan_outputsPlan(){

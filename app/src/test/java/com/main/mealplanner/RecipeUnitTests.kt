@@ -1,20 +1,16 @@
 package com.main.mealplanner
 
-import androidx.lifecycle.MutableLiveData
 import org.junit.Test
-import com.main.mealplanner.dto.Recipe
-import com.main.mealplanner.service.RecipeService
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.main.mealplanner.dto.RecipeHeader
 import org.junit.Assert.*
 import io.mockk.confirmVerified
-import io.mockk.every
-import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Rule
 import org.junit.rules.TestRule
 
 class RecipeUnitTests {
 
-    //var recipeService = mockk<RecipeService>();
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -24,25 +20,16 @@ class RecipeUnitTests {
         mvm = MainViewModel()
     }
 
-    /*
-    //creates some dummy data
-    private fun createMockData(){
-        var allRecipeLiveData = MutableLiveData<ArrayList<Recipe>>()
-        var allRecipes = ArrayList<Recipe>()
-
-        var spaghetti = Recipe("Spaghetti", "Italian", 1700, "Spaghetti Sauce, Spaghetti, Salt, Meatballs", "Cook Spaghetti", 10)
-        allRecipes.add(spaghetti)
-        allRecipeLiveData.postValue(allRecipes)
-        every {recipeService.fetchRecipe("Spaghetti")} returns allRecipeLiveData
-        every {recipeService.fetchRecipe(not("Spaghetti"))} returns MutableLiveData<ArrayList<Recipe>>()
-        mvm.recipeService = recipeService
-    }
-     */
-
     @Test
     fun confirmSpaghetti_outputsSpaghetti(){
-        var spaghetti = Recipe("Spaghetti", "Italian", 1700, "Spaghetti Sauce, Spaghetti, Salt, Meatballs", "Cook Spaghetti", 10)
-        assertEquals("Spaghetti", spaghetti.Meal)
+        var spaghetti = RecipeHeader("123", "Spaghetti", "google.com")
+        assertEquals("Spaghetti", spaghetti.name)
+    }
+
+    @Test confirmSpaghettiInstructions_outputsInstructions(){
+        var spaghetti = RecipeDetails()
+        spaghetti.instructions = "test"
+        assertEquals("test", spaghetti.instructions)
     }
 
     @Test
@@ -59,7 +46,7 @@ class RecipeUnitTests {
             assertNotNull(it)
             assertTrue(it.size > 0)
             it.forEach {
-                if (it.Meal == "Spaghetti" && it.Country == "Italian" && it.RecipeId == 10){
+                if (it.name == "Spaghetti"){
                     spaghettiFound = true;
                 }
             }
@@ -75,7 +62,7 @@ class RecipeUnitTests {
     }
 
     private fun givenAFeedOfMockedRecipeDataAvailable() {
-        TODO("Not yet implemented")
+        mvm.fetchAllRecipes()
     }
 
     private fun thenIGetNoResults(){

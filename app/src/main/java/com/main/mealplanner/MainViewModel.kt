@@ -1,7 +1,10 @@
 package com.main.mealplanner
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.main.mealplanner.dto.RecipeHeader
 import com.main.mealplanner.service.RecipeService
 
@@ -12,7 +15,7 @@ class MainViewModel : ViewModel() {
     lateinit var firestore : FirebaseFirestore
     
     init {
-        fetchRecipes(name: "e")
+        fetchRecipe("e")
             firestore = FirebaseFirestore.getInstance()
             firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
             listenToRecipes()

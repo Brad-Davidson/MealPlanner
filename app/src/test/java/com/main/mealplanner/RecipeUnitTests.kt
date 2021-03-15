@@ -26,7 +26,8 @@ class RecipeUnitTests {
         assertEquals("Spaghetti", spaghetti.name)
     }
 
-    @Test confirmSpaghettiInstructions_outputsInstructions(){
+    @Test
+    fun confirmSpaghettiInstructions_outputsInstructions(){
         var spaghetti = RecipeDetails()
         spaghetti.instructions = "test"
         assertEquals("test", spaghetti.instructions)

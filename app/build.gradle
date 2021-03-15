@@ -49,6 +49,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
     testImplementation 'androidx.arch.core:core-testing:2.0.0'
+    implementation platform('com.google.firebase:firebase-bom:26.7.0')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
     testImplementation "io.mockk:mockk:1.9"
     testImplementation "io.mockk:mockk:1.9"
     annotationProcessor 'androidx.room:room-compiler:2.2.6'

@@ -4,6 +4,7 @@ import org.junit.Test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.main.mealplanner.dto.RecipeDetails
 import com.main.mealplanner.dto.RecipeHeader
+import com.main.mealplanner.service.RecipeService
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.rules.TestRule
@@ -14,6 +15,7 @@ class RecipeUnitTests {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
     lateinit var mvm:MainViewModel
+    var recipeService: RecipeService = RecipeService()
 
     private fun givenAFeedOfRecipeDataAvailable(){
         mvm = MainViewModel()
@@ -36,7 +38,7 @@ class RecipeUnitTests {
     @Test
     fun searchForSpaghetti_returnsSpaghetti(){
         givenAFeedOfRecipeDataAvailable()
-        var detail = mvm.fetchRecipe("52770") //id for spaghetti bolognese
+        var detail = recipeService.fetchRecipeDetails("52770")//id for spaghetti bolognese
         thenResultsContainSpaghetti(detail)
     }
     private fun thenResultsContainSpaghetti(details: ArrayList<RecipeDetails>){
@@ -53,14 +55,12 @@ class RecipeUnitTests {
 
     @Test
     fun searchForGarbage_returnsNothing(){
-        givenAFeedOfMockedRecipeDataAvailable()
-        var detail = mvm.fetchRecipe("512312541")
+        givenAFeedOfRecipeDataAvailable()
+        var detail = recipeService.fetchRecipeDetails("512312541")
+        Thread.sleep(5000) // THIS IS A REALLY BAD WAY TO DO THIS, BUT I CANNOT FIGURE OUT HOW TO MAKE SUSPENDED
         thenIGetNoResults(detail)
     }
 
-    private fun givenAFeedOfMockedRecipeDataAvailable() {
-        mvm.fetchAllRecipes()
-    }
 
     private fun thenIGetNoResults(detail: ArrayList<RecipeDetails>) {
         assertEquals(0, detail.size)

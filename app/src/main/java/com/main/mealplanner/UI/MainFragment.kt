@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
@@ -44,6 +46,20 @@ class MainFragment: Fragment(){
                 lstRecipes.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipes)
 
         })
+
+        lstRecipes.onItemClickListener = object: AdapterView.OnItemClickListener{
+            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val element = viewModel.recipes.value?.get(position)
+                val detailFragment = element?.recipeID?.let { DetailsFragment.newInstance(it) }
+                if (savedInstanceState == null) {
+                    if (detailFragment != null) {
+                        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main, detailFragment, "detailFragment")?.commit()
+                    }
+                }
+
+            }
+
+        }
 
     }
 }

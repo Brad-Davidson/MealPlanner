@@ -53,7 +53,7 @@ data class RecipeDetails(
         , @SerializedName("strMeasure18") val measurement18: String
         , @SerializedName("strMeasure19") val measurement19: String
         , @SerializedName("strMeasure20") val measurement20: String
-        , @SerializedName("strInstructions") val instructions: String
+        , @SerializedName("strInstructions") var instructions: String
         , @SerializedName("strMealThumb") val recipeImageUrl: String
 ) {
     override fun toString(): String {

@@ -2,10 +2,9 @@ package com.main.mealplanner
 
 import org.junit.Test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.main.mealplanner.dto.RecipeDetails
 import com.main.mealplanner.dto.RecipeHeader
 import org.junit.Assert.*
-import io.mockk.confirmVerified
-import io.mockk.verify
 import org.junit.Rule
 import org.junit.rules.TestRule
 
@@ -28,7 +27,8 @@ class RecipeUnitTests {
 
     @Test
     fun confirmSpaghettiInstructions_outputsInstructions(){
-        var spaghetti = RecipeDetails()
+        //this is kinda a ridiculous way to construct a class, look into making all of the variables optional.
+        var spaghetti = RecipeDetails("1234","","","Spaghetti", "","","","", "","","","", "","","","", "","","","", "","","","","","","","","","","","","","","","", "","","","", "","","","", "test","")
         spaghetti.instructions = "test"
         assertEquals("test", spaghetti.instructions)
     }
@@ -36,20 +36,16 @@ class RecipeUnitTests {
     @Test
     fun searchForSpaghetti_returnsSpaghetti(){
         givenAFeedOfRecipeDataAvailable()
-        mvm.fetchRecipe("Spaghetti")
-        thenResultsContainSpaghetti()
-        verify {mvm.fetchRecipe("Spaghetti")}
-        confirmVerified()
+        var detail = mvm.fetchRecipe("52770") //id for spaghetti bolognese
+        thenResultsContainSpaghetti(detail)
     }
-    private fun thenResultsContainSpaghetti(){
+    private fun thenResultsContainSpaghetti(details: ArrayList<RecipeDetails>){
         var spaghettiFound = false;
-        mvm.recipes.observeForever {
-            assertNotNull(it)
-            assertTrue(it.size > 0)
-            it.forEach {
-                if (it.name == "Spaghetti"){
-                    spaghettiFound = true;
-                }
+        assertNotNull(details)
+        assertTrue(details.size > 0)
+        details.forEach {
+            if (it.name == "Spaghetti Bolognese"){
+                spaghettiFound = true;
             }
         }
         assertTrue(spaghettiFound)
@@ -58,18 +54,16 @@ class RecipeUnitTests {
     @Test
     fun searchForGarbage_returnsNothing(){
         givenAFeedOfMockedRecipeDataAvailable()
-        mvm.fetchRecipe("aslkjgaoh")
-        thenIGetNoResults()
+        var detail = mvm.fetchRecipe("512312541")
+        thenIGetNoResults(detail)
     }
 
     private fun givenAFeedOfMockedRecipeDataAvailable() {
         mvm.fetchAllRecipes()
     }
 
-    private fun thenIGetNoResults(){
-        mvm.recipes.observeForever {
-            assertEquals(0, it.size)
-        }
+    private fun thenIGetNoResults(detail: ArrayList<RecipeDetails>) {
+        assertEquals(0, detail.size)
     }
 
 }

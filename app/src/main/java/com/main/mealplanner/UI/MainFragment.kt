@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.RecipeHeader
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.rowlayout.*
 import java.util.ArrayList
@@ -80,12 +81,12 @@ class MainFragment: Fragment(){
     }
 
     inner class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        private var imgEventThumbnail : ImageView = itemView.findViewById(R.id.imgRecipe)
+        private var imgRecipeThumbnail : ImageView = itemView.findViewById(R.id.imgRecipe)
         private var lblRecipeInfo: TextView = itemView.findViewById(R.id.lblRecipeInfo)
-
+        //tap event to open detail fragment
         fun updateRecipes (recipe : RecipeHeader) {
             lblRecipeInfo.text = recipe.toString()
-//
+            Picasso.get().load(recipe.recipeImageUrl).into(imgRecipeThumbnail)
         }
     }
 }

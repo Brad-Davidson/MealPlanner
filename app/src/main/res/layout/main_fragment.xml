@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lstRecipes"
             android:layout_width="405dp"
             android:layout_height="629dp"

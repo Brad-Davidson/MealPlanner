@@ -1,19 +1,29 @@
 package com.main.mealplanner.UI
 
+import android.app.AlertDialog
 import android.app.usage.UsageEvents
+import android.content.ContentValues
+import android.content.DialogInterface
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.main.mealplanner.R
+import com.main.mealplanner.dto.RecipeHeader
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.rowlayout.*
 import java.util.ArrayList
 
 class MainFragment: Fragment(){
@@ -22,7 +32,7 @@ class MainFragment: Fragment(){
     }
 
     private lateinit var viewModel: MainViewModel
-    private var _events = ArrayList<UsageEvents.Event>()
+    private var _recipes = ArrayList<RecipeHeader>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,35 +43,49 @@ class MainFragment: Fragment(){
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.fetchAllRecipes()
-        viewModel.recipes.observe(this, Observer {
+        lstRecipes.hasFixedSize()
+        lstRecipes.layoutManager = LinearLayoutManager(context)
+        lstRecipes.itemAnimator = DefaultItemAnimator()
+        lstRecipes.adapter = RecipeAdapter(_recipes, R.layout.rowlayout)
+
+        viewModel.recipes.observe(this, Observer{
             recipes ->
-                rcpSearch.setAdapter(
-                    ArrayAdapter(
-                        context!!,
-                        android.R.layout.simple_spinner_dropdown_item,
-                        recipes
-                    )
-                )
-
-                lstRecipes.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipes)
-
+            _recipes.removeAll(_recipes)
+            _recipes.addAll(recipes)
+            lstRecipes.adapter!!.notifyDataSetChanged()
         })
+    }
 
-        lstRecipes.onItemClickListener = object: AdapterView.OnItemClickListener{
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val element = viewModel.recipes.value?.get(position)
-                val detailFragment = element?.recipeID?.let { DetailsFragment.newInstance(it) }
-                if (savedInstanceState == null) {
-                    if (detailFragment != null) {
-                        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main, detailFragment, "detailFragment")?.commit()
-                    }
-                }
-
-            }
-
+    inner class RecipeAdapter(val recipes: List<RecipeHeader>, val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(itemLayout, parent, false)
+            return RecipeViewHolder(view)
         }
+
+        /**
+         * Returns the total number of items in the data set held by the adapter.
+         *
+         * @return The total number of items in this adapter.
+         */
+        override fun getItemCount(): Int {
+            return recipes.size
+        }
+
+        override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
+            val recipe = recipes.get(position)
+            holder.updateRecipes(recipe)
+        }
+
 
     }
 
-    //testpush
+    inner class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        private var imgEventThumbnail : ImageView = itemView.findViewById(R.id.imgRecipe)
+        private var lblRecipeInfo: TextView = itemView.findViewById(R.id.lblRecipeInfo)
+
+        fun updateRecipes (recipe : RecipeHeader) {
+            lblRecipeInfo.text = recipe.toString()
+//
+        }
+    }
 }

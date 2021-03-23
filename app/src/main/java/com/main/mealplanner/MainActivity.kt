@@ -2,8 +2,11 @@ package com.main.mealplanner
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.AutoCompleteTextView
+import android.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
 import com.main.mealplanner.UI.MainFragment
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainActivity : AppCompatActivity() {
 

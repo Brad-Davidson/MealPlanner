@@ -8,7 +8,7 @@
     tools:context=".UI.MainFragment">
 
 
-        <AutoCompleteTextView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/rcpSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

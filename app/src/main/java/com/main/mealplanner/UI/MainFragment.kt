@@ -1,8 +1,5 @@
 package com.main.mealplanner.UI
 
-import android.app.AlertDialog
-import android.app.usage.UsageEvents
-import android.content.ContentValues
 import android.content.DialogInterface
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -20,12 +17,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.SearchView
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.RecipeHeader
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.rowlayout.*
-import java.util.ArrayList
+import java.util.*
 
 class MainFragment: Fragment(){
     companion object {
@@ -33,7 +31,9 @@ class MainFragment: Fragment(){
     }
 
     private lateinit var viewModel: MainViewModel
-    private var _recipes = ArrayList<RecipeHeader>()
+    private var _recipes = ArrayList<RecipeHeader>() //this is a copy of the full data set
+    private var _filteredRecipes = ArrayList<RecipeHeader>()
+    lateinit var adapter: RecipeAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,17 +47,31 @@ class MainFragment: Fragment(){
         lstRecipes.hasFixedSize()
         lstRecipes.layoutManager = LinearLayoutManager(context)
         lstRecipes.itemAnimator = DefaultItemAnimator()
-        lstRecipes.adapter = RecipeAdapter(_recipes, R.layout.rowlayout)
+        adapter = RecipeAdapter(R.layout.rowlayout)
+        lstRecipes.adapter = adapter
+
+        rcpSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+
+        })
 
         viewModel.recipes.observe(this, Observer{
             recipes ->
             _recipes.removeAll(_recipes)
             _recipes.addAll(recipes)
+            _filteredRecipes = _recipes
             lstRecipes.adapter!!.notifyDataSetChanged()
         })
     }
 
-    inner class RecipeAdapter(val recipes: List<RecipeHeader>, val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>() {
+    inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(itemLayout, parent, false)
             return RecipeViewHolder(view)
@@ -69,11 +83,39 @@ class MainFragment: Fragment(){
          * @return The total number of items in this adapter.
          */
         override fun getItemCount(): Int {
-            return recipes.size
+            return _filteredRecipes.size
+        }
+
+        override fun getFilter(): Filter {
+            return object: Filter(){
+                override fun performFiltering(constraint: CharSequence?): FilterResults {
+                    val charSearch = constraint.toString()
+                    if (charSearch.isEmpty()) {
+                        _filteredRecipes = _recipes
+                    } else {
+                        val resultList = ArrayList<RecipeHeader>()
+                        for (row in _recipes) {
+                            if (row.name.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
+                                resultList.add(row)
+                            }
+                        }
+                        _filteredRecipes = resultList
+                    }
+                    val filterResults = FilterResults()
+                    filterResults.values = _filteredRecipes
+                    return filterResults
+                }
+
+                override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                    _filteredRecipes = results?.values as ArrayList<RecipeHeader>
+                    notifyDataSetChanged()
+                }
+
+            }
         }
 
         override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-            val recipe = recipes.get(position)
+            val recipe = _filteredRecipes.get(position)
             holder.updateRecipes(recipe)
         }
 
@@ -90,3 +132,4 @@ class MainFragment: Fragment(){
         }
     }
 }
+

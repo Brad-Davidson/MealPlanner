@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
+import com.main.mealplanner.MainActivity
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.RecipeHeader
 import com.squareup.picasso.Picasso
@@ -125,10 +126,21 @@ class MainFragment: Fragment(){
     inner class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         private var imgRecipeThumbnail : ImageView = itemView.findViewById(R.id.imgRecipe)
         private var lblRecipeInfo: TextView = itemView.findViewById(R.id.lblRecipeInfo)
-        //tap event to open detail fragment
+        private var btnViewRecipe: Button = itemView.findViewById(R.id.btnViewRecipe)
+
+
+
         fun updateRecipes (recipe : RecipeHeader) {
+            btnViewRecipe.setOnClickListener{
+                openDetails(recipe)
+            }
+
             lblRecipeInfo.text = recipe.toString()
             Picasso.get().load(recipe.recipeImageUrl).into(imgRecipeThumbnail)
+        }
+
+        private fun openDetails(recipe: RecipeHeader){
+            (activity as MainActivity?)!!.openRecipeDetails(recipe.recipeID)
         }
     }
 }

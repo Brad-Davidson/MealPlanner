@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.AutoCompleteTextView
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
+import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -22,6 +23,13 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container,mainFragment)
                 .commitNow()
         }
-
     }
+
+    fun openRecipeDetails(recipeID: String){
+        var detailsFragment = DetailsFragment.newInstance(recipeID)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, detailsFragment)
+                .commitNow()
+    }
+
 }

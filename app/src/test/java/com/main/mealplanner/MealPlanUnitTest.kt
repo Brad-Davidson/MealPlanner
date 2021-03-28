@@ -7,6 +7,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import java.security.InvalidParameterException
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 class MealPlanUnitTest {
@@ -17,20 +19,20 @@ class MealPlanUnitTest {
 
     @Test
     fun confirmMealPlan_outputsPlan(){
-        var mealPlan = MealPlan(Date(2000, 1, 1), "1", "Brad", 1 )
-        Assert.assertEquals("Cook Recipe # 1 at Thu Feb 01 00:00:00 UTC 3900", mealPlan.toString())
+        var mealPlan = MealPlan(LocalDateTime.of(2000, 1, 1, 0, 0), "1", "Brad", 1 )
+        Assert.assertEquals("Cook Recipe #1 at 2000-01-01T00:00", mealPlan.toString())
     }
 
     @Test(expected = InvalidParameterException::class)
     fun confirmMealPlan_setInvalidTime(){
-        var mealPlan = MealPlan( Date(), "1", "Brad", 1 )
-        mealPlan.setTime(Date(2000,1,1))
+        var mealPlan = MealPlan( LocalDateTime.now(), "1", "Brad", 1 )
+        mealPlan.setTime(LocalDateTime.of(2000, 1, 1, 0, 0))
     }
 
     @Test
     fun confirmMealPlan_setTime(){
-        var mealPlan = MealPlan( Date(), "1", "Brad", 1 )
-        mealPlan.setTime(Date(2030, 1, 1))
+        var mealPlan = MealPlan( LocalDateTime.now(), "1", "Brad", 1 )
+        mealPlan.setTime(LocalDateTime.of(2030, 1, 1, 0, 0))
     }
 
 }

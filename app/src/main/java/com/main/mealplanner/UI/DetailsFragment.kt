@@ -58,6 +58,9 @@ open class DetailsFragment: Fragment(){
 
         recipeDtl = arguments?.getString("recipe_id")?.let { viewModel.fetchRecipe(it).first() }!!
         txtTitle?.setText(recipeDtl?.name)
+        txtInstructions?.setText(recipeDtl?.instructions)
+
+
         Picasso.get().load(recipeDtl.recipeImageUrl).into(imgRecipe)
     }
 }

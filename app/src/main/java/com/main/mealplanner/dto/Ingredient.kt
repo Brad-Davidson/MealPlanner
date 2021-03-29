@@ -1,11 +1,7 @@
 package com.main.mealplanner.dto
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
-
-data class Ingredient(var nearStore: String, var quantity : String, var name : String) {
+data class Ingredient(var nearStore: String, var quantity: String?, var name: String?) {
     override fun toString(): String {
-        return "$quantity of $name"
+        return "$name: $quantity"
     }
 }

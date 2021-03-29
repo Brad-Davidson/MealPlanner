@@ -10,6 +10,7 @@ import com.main.mealplanner.dao.IRecipeDAO
 import com.main.mealplanner.dao.IIngredientDAO
 import com.main.mealplanner.dao.IMealPlanDAO
 import com.main.mealplanner.dto.MealPlan
+import com.main.mealplanner.dto.RecipeDetails
 import kotlin.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback

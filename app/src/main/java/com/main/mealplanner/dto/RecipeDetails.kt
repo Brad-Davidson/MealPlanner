@@ -63,7 +63,35 @@ data class RecipeDetails(
         , @SerializedName("strImageSource") val imageSource: String? = null
         , @SerializedName("strYoutube") val youtube: String? = null
 ) {
-    override fun toString(): String {
+        override fun toString(): String {
         return "Recipe Name: $name, Recipe Category: $category"
     }
+
+        fun getIngredients(): ArrayList<Ingredient>{
+                var ingredients = ArrayList<Ingredient>()
+
+                //combine all non-null ingredients with their measurement
+                if(ingredient1 != null && measurement1 != null) ingredients.add(Ingredient("", measurement1, ingredient1))
+                if(ingredient2 != null && measurement2 != null) ingredients.add(Ingredient("", measurement2, ingredient2))
+                if(ingredient3 != null && measurement3 != null) ingredients.add(Ingredient("", measurement3, ingredient3))
+                if(ingredient4 != null && measurement4 != null) ingredients.add(Ingredient("", measurement4, ingredient4))
+                if(ingredient5 != null && measurement5 != null) ingredients.add(Ingredient("", measurement5, ingredient5))
+                if(ingredient6 != null && measurement6 != null) ingredients.add(Ingredient("", measurement6, ingredient6))
+                if(ingredient7 != null && measurement7 != null) ingredients.add(Ingredient("", measurement7, ingredient7))
+                if(ingredient8 != null && measurement8 != null) ingredients.add(Ingredient("", measurement8, ingredient8))
+                if(ingredient9 != null && measurement9 != null) ingredients.add(Ingredient("", measurement9, ingredient9))
+                if(ingredient10 != null && measurement10 != null) ingredients.add(Ingredient("", measurement10, ingredient10))
+                if(ingredient11 != null && measurement11 != null) ingredients.add(Ingredient("", measurement11, ingredient11))
+                if(ingredient12 != null && measurement12 != null) ingredients.add(Ingredient("", measurement12, ingredient12))
+                if(ingredient13 != null && measurement13 != null) ingredients.add(Ingredient("", measurement13, ingredient13))
+                if(ingredient14 != null && measurement14 != null) ingredients.add(Ingredient("", measurement14, ingredient14))
+                if(ingredient15 != null && measurement15 != null) ingredients.add(Ingredient("", measurement15, ingredient15))
+                if(ingredient16 != null && measurement16 != null) ingredients.add(Ingredient("", measurement16, ingredient16))
+                if(ingredient17 != null && measurement17 != null) ingredients.add(Ingredient("", measurement17, ingredient17))
+                if(ingredient18 != null && measurement18 != null) ingredients.add(Ingredient("", measurement18, ingredient18))
+                if(ingredient19 != null && measurement19 != null) ingredients.add(Ingredient("", measurement19, ingredient19))
+                if(ingredient20 != null && measurement20 != null) ingredients.add(Ingredient("", measurement20, ingredient20))
+
+                return ingredients
+        }
 }

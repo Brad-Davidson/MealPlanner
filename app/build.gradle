@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.com.com.mealplanner"
-        minSdkVersion 26
+        minSdkVersion 26 //need for new date
         targetSdkVersion 30
         multiDexEnabled true
         versionCode 1

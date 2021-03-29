@@ -24,8 +24,11 @@
             android:layout_width="405dp"
             android:layout_height="629dp"
             android:layout_marginTop="86dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rcpSearch" />
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/rcpSearch"/>
+
 
 
         <Button
@@ -34,11 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="105dp"
             android:text="Catagories"
             android:textSize="9dp"
             app:layout_constraintStart_toEndOf="@+id/btnShoppingList"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteY="105dp" />
 
         <Button
             android:id="@+id/btnSchedule"
@@ -46,7 +48,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="105dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:text="Schedule"
@@ -54,7 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.166"
             app:layout_constraintStart_toEndOf="@+id/btnCatagories"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteY="105dp" />
 
         <TextView
             android:id="@+id/txtShowing"
@@ -62,11 +63,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
             android:text="Showing:    Recipes"
             app:layout_constraintBottom_toTopOf="@+id/lstRecipes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCatagories" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCatagories"
+            android:gravity="center_horizontal"
+             />
 
         <ImageButton
             android:id="@+id/btnShoppingList"
@@ -74,10 +75,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="105dp"
             android:src="@drawable/ic_shopping_list"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteY="105dp" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

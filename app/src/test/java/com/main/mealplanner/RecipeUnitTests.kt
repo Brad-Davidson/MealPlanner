@@ -61,13 +61,6 @@ class RecipeUnitTests {
         thenIGetNoResults(detail)
     }
 
-    @Test
-    fun getIngredientsForSpaghetti_returnList(){
-        givenAFeedOfRecipeDataAvailable()
-        var detail = recipeService.fetchRecipeDetails("52770")//id for spaghetti bolognese
-        assertTrue(detail.first().getIngredients().size > 0)
-    }
-
 
     private fun thenIGetNoResults(detail: ArrayList<RecipeDetails>) {
         assertEquals(0, detail.size)

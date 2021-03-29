@@ -58,9 +58,6 @@ open class DetailsFragment: Fragment(){
 
         recipeDtl = arguments?.getString("recipe_id")?.let { viewModel.fetchRecipe(it).first() }!!
         txtTitle?.setText(recipeDtl?.name)
-        txtInstructions?.setText(recipeDtl?.instructions)
-        lstIngredients.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipeDtl?.getIngredients())
-
         Picasso.get().load(recipeDtl.recipeImageUrl).into(imgRecipe)
     }
 }

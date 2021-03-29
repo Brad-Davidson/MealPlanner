@@ -11,12 +11,10 @@ import android.util.Log
 import com.main.mealplanner.dto.RecipeDetailList
 import com.main.mealplanner.dto.RecipeDetails
 import com.main.mealplanner.dto.RecipeList
-import com.main.mealplanner.dto.Ingredient
 
 class RecipeService {
     fun fetchRecipeHeaders() : MutableLiveData<ArrayList<RecipeHeader>> {
         var _recipes = MutableLiveData<ArrayList<RecipeHeader>>()
-        var _ingredients = MutableLiveData<ArrayList<Ingredient>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IRecipeDAO::class.java)
         val call = service?.getAllRecipes()
         call?.enqueue(object: Callback<RecipeList> {

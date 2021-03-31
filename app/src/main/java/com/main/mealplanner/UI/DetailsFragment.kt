@@ -14,16 +14,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
+import com.main.mealplanner.MainActivity
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.RecipeDetails
+import com.main.mealplanner.dto.RecipeHeader
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.details_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.*
+
 import java.util.ArrayList
 
 open class DetailsFragment: Fragment(){
     internal lateinit var viewModel: MainViewModel
-    private var recipeDtl = RecipeDetails()
+    private var recipeDetails = RecipeDetails()
 
     companion object {
         const val RECIPE_ID = "recipe_id"
@@ -39,7 +43,7 @@ open class DetailsFragment: Fragment(){
             var policy =  StrictMode.ThreadPolicy.Builder().permitAll().build()
 
             StrictMode.setThreadPolicy(policy)
-            return fragment
+          return fragment
         }
     }
 
@@ -56,11 +60,16 @@ open class DetailsFragment: Fragment(){
             viewModel = ViewModelProviders.of(it!!).get(MainViewModel::class.java)
         }
 
-        recipeDtl = arguments?.getString("recipe_id")?.let { viewModel.fetchRecipe(it).first() }!!
-        txtTitle?.setText(recipeDtl?.name)
-        txtInstructions?.setText(recipeDtl?.instructions)
-        lstIngredients.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipeDtl?.getIngredients())
+        recipeDetails = arguments?.getString("recipe_id")?.let { viewModel.fetchRecipe(it).first() }!!
+        txtTitle?.text = recipeDetails?.name
+        txtInstructions?.text = recipeDetails?.instructions
+        lstIngredients.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipeDetails?.getIngredients())
 
-        Picasso.get().load(recipeDtl.recipeImageUrl).into(imgRecipe)
+        Picasso.get().load(recipeDetails.recipeImageUrl).into(imgRecipe)
+
+
     }
+
+
+
 }

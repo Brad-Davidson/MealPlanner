@@ -58,11 +58,11 @@ class RecipeService {
             call?.cancel()
            _recipeDetails = ArrayList<RecipeDetails>()
         }
+
+        return _recipeDetails
         
      fun getShoppingList(recipes: ArrayList<RecipeDetails>) {
      }
-
-        return _recipeDetails
     }
 
 }

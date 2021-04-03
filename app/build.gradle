@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.android.application'
+
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -51,7 +55,8 @@ dependencies {
     testImplementation 'org.awaitility:awaitility-kotlin:4.0.3'
     androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
     testImplementation 'androidx.arch.core:core-testing:2.0.0'
-    implementation platform('com.google.firebase:firebase-bom:26.7.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
     implementation 'com.google.firebase:firebase-firestore-ktx'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'

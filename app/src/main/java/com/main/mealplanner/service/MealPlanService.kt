@@ -19,21 +19,6 @@ import java.util.ArrayList
 
 class
 MealPlanService(application: Application) {
-  
-     fun fetchMealPlans(MealPlanID: String) : ArrayList<MealPlan> {
-        var _mealPlans = ArrayList<MealPlan>()
-        var service = RetrofitClientInstance.retrofitInstance?.create(IMealPlanDAO::class.java)
-        var call = service?.getAllMealPlans(MealPlanID)
-        try {
-            __mealPlans = call?.execute()?.body()?.meals!!
-            call?.cancel()
-        } catch (e: NullPointerException){
-            call?.cancel()
-           __mealPlans = ArrayList<MealPlans>()
-        }
-       return _mealPlans
-        
-  
 //    private val application = application
 //
 //    internal suspend fun fetchMealPlans(MealPlanId: String) {

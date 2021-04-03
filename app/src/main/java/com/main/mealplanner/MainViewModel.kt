@@ -10,9 +10,10 @@ import com.main.mealplanner.dto.RecipeHeader
 import com.main.mealplanner.service.RecipeService
 
 class MainViewModel : ViewModel() {
-
+    var mealplans: MutableLiveData<ArrayList<MealPlan>> = MutableLiveData()
     var recipes: MutableLiveData<ArrayList<RecipeHeader>> = MutableLiveData()
     var recipeService: RecipeService = RecipeService()
+    var mealplanService: MealPlanService = MealPlanService()
     lateinit var firestore : FirebaseFirestore
     
     init {

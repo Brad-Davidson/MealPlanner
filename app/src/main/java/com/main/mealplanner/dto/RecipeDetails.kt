@@ -90,6 +90,33 @@ data class RecipeDetails(
                 if(ingredient19 != "" && measurement19 != "") ingredients.add(Ingredient("", measurement19, ingredient19))
                 if(ingredient20 != "" && measurement20 != "") ingredients.add(Ingredient("", measurement20, ingredient20))
 
-                return ingredients
+        return ingredients
+    }
+
+//TODO() I Think using a funcation like this would clean up your code and avoid so many if statements, its up to you guys want use its up to preference
+
+    fun exampleFuncation(ingredients: ArrayList<String>, measurements:ArrayList<String>): ArrayList<Ingredient> {
+        var ingredientsList = ArrayList<Ingredient>()
+        var curMeasurement: String
+        var curIngredient:String
+
+        for(i in 0..ingredients.size-1)
+        {
+            curMeasurement= measurements[i]
+            curIngredient= ingredients[i]
+
+            if (curMeasurement != "" && curIngredient != "") ingredientsList.add(
+                Ingredient(
+                    "",
+                    curMeasurement,
+                    curIngredient
+                )
+            )
         }
+        return ingredientsList
+
+    }
+
+
+
 }

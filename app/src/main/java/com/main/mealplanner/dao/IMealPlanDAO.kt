@@ -8,7 +8,7 @@ import com.main.mealplanner.dto.MealPlan
 interface IMealPlanDAO {
 
     @Query("SELECT * FROM MealPlan")
-    fun getAllMealPlans()  : LiveData<List<MealPlan>>
+    fun getAllMealPlans(): LiveData<List<MealPlan>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(mealplans: ArrayList<MealPlan>)

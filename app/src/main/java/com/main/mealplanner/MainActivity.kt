@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         var detailsFragment = DetailsFragment.newInstance(recipeID)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, detailsFragment)
-                .commitNow()
+                .addToBackStack("tag")
+                .commit()
     }
 
 }

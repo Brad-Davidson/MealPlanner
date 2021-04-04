@@ -4,14 +4,19 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.android.application'
+
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.com.com.mealplanner"
-        minSdkVersion 16
+        minSdkVersion 26
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
 
@@ -47,8 +52,12 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    testImplementation "io.mockk:mockk:1.9"
-    testImplementation "io.mockk:mockk:1.9"
+    testImplementation 'org.awaitility:awaitility-kotlin:4.0.3'
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
+    testImplementation 'androidx.arch.core:core-testing:2.0.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'

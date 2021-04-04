@@ -1,8 +1,13 @@
 package com.main.mealplanner
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.AutoCompleteTextView
+import android.widget.SearchView
+import androidx.lifecycle.ViewModelProviders
+import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,9 +20,16 @@ class MainActivity : AppCompatActivity() {
         mainFragment = MainFragment.newInstance()
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, mainFragment)
+                .replace(R.id.container,mainFragment)
                 .commitNow()
         }
-
     }
+
+    fun openRecipeDetails(recipeID: String){
+        var detailsFragment = DetailsFragment.newInstance(recipeID)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, detailsFragment)
+                .commitNow()
+    }
+
 }

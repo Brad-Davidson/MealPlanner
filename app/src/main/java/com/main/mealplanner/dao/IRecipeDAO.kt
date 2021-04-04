@@ -1,20 +1,21 @@
 package com.main.mealplanner.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room.*
+import com.main.mealplanner.dto.RecipeDetailList
 import com.main.mealplanner.dto.RecipeHeader
 import com.main.mealplanner.dto.RecipeList
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 @Dao
 interface IRecipeDAO {
 
     @GET("filter.php?i=")
-    fun getAllRecipes(): Call<RecipeList>
+    fun getAllRecipes() : Call<RecipeList>
 
+    @GET("lookup.php")
+    fun getRecipeDetails(@Query("i") i: String): Call<RecipeDetailList>
 
     //@Query("SELECT * FROM Recipe")
     //fun getAllRecipes()  : LiveData<List<Recipe>>

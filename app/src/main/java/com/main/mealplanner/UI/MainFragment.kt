@@ -1,30 +1,26 @@
 package com.main.mealplanner.UI
 
-import android.content.DialogInterface
-import android.graphics.ImageDecoder
-import android.net.Uri
+
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.widget.SearchView
 import com.main.mealplanner.MainActivity
+import com.main.mealplanner.MainViewModel
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.RecipeHeader
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.rowlayout.*
 import java.util.*
+
 
 class MainFragment: Fragment(){
     companion object {
@@ -36,8 +32,8 @@ class MainFragment: Fragment(){
     private var _filteredRecipes = ArrayList<RecipeHeader>()
     lateinit var adapter: RecipeAdapter
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
@@ -51,7 +47,7 @@ class MainFragment: Fragment(){
         adapter = RecipeAdapter(R.layout.rowlayout)
         lstRecipes.adapter = adapter
 
-        rcpSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        rcpSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -63,13 +59,14 @@ class MainFragment: Fragment(){
 
         })
 
-        viewModel.recipes.observe(this, Observer{
-            recipes ->
+        viewModel.recipes.observe(this, Observer { recipes ->
             _recipes.removeAll(_recipes)
             _recipes.addAll(recipes)
             _filteredRecipes = _recipes
             lstRecipes.adapter!!.notifyDataSetChanged()
         })
+
+
     }
 
     inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {
@@ -123,14 +120,14 @@ class MainFragment: Fragment(){
 
     }
 
-    inner class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var imgRecipeThumbnail : ImageView = itemView.findViewById(R.id.imgRecipe)
         private var lblRecipeInfo: TextView = itemView.findViewById(R.id.lblRecipeInfo)
         private var btnViewRecipe: Button = itemView.findViewById(R.id.btnViewRecipe)
+        private var btnAddRecipe: Button = itemView.findViewById(R.id.btnAddRecipe)
 
 
-
-        fun updateRecipes (recipe : RecipeHeader) {
+        fun updateRecipes(recipe: RecipeHeader) {
             btnViewRecipe.setOnClickListener{
                 openDetails(recipe)
             }
@@ -141,7 +138,10 @@ class MainFragment: Fragment(){
 
         private fun openDetails(recipe: RecipeHeader){
             (activity as MainActivity?)!!.openRecipeDetails(recipe.recipeID)
+
         }
+
+
     }
 }
 

@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  *
  */
 data class RecipeDetails(
-        @SerializedName("idMeal") val recipeID: String? = null
+          @SerializedName("idMeal") val recipeID: String? = null
         , @SerializedName("strArea") val area: String? = null
         , @SerializedName("strCategory") val category: String? = null
         , @SerializedName("strMeal") val name: String? = null

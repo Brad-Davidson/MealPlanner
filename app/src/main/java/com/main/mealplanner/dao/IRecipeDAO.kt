@@ -17,9 +17,6 @@ interface IRecipeDAO {
     @GET("lookup.php")
     fun getRecipeDetails(@Query("i") i: String): Call<RecipeDetailList>
 
-    //@Query("SELECT * FROM Recipe")
-    //fun getAllRecipes()  : LiveData<List<Recipe>>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(recipeHeaders: ArrayList<RecipeHeader>)
 

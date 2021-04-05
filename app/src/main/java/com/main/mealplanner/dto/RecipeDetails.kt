@@ -2,10 +2,7 @@ package com.main.mealplanner.dto
 
 import com.google.gson.annotations.SerializedName
 
-//@Entity(tableName="recipedetails") I don't believe we need to save this to a entity table
-/**
- *
- */
+
 data class RecipeDetails(
         @SerializedName("idMeal") val recipeID: String? = null
         , @SerializedName("strArea") val area: String? = null

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
+import com.main.mealplanner.UI.MealPlanFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +26,13 @@ class MainActivity : AppCompatActivity() {
         var detailsFragment = DetailsFragment.newInstance(recipeID)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, detailsFragment)
+                .addToBackStack("tag")
+                .commit()
+    }
+
+    fun openMealPlans(){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MealPlanFragment.newInstance())
                 .addToBackStack("tag")
                 .commit()
     }

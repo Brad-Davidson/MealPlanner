@@ -18,7 +18,12 @@ import retrofit2.Response
 import java.util.ArrayList
 
 class
-MealPlanService(application: Application) {
+MealPlanService() {
+    fun fetchMealPlans(): MutableLiveData<ArrayList<MealPlan>> {
+        var _mealplans = MutableLiveData<ArrayList<MealPlan>>()
+        //todo get mealplans from firebase
+        return _mealplans
+    }
 //    private val application = application
 //
 //    internal suspend fun fetchMealPlans(MealPlanId: String) {

@@ -20,10 +20,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
 import com.main.mealplanner.MainActivity
 import com.main.mealplanner.R
+import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.rowlayout.*
+import java.time.LocalDateTime
 import java.util.*
 
 class MainFragment: Fragment(){
@@ -34,6 +36,7 @@ class MainFragment: Fragment(){
     private lateinit var viewModel: MainViewModel
     private var _recipes = ArrayList<RecipeHeader>() //this is a copy of the full data set
     private var _filteredRecipes = ArrayList<RecipeHeader>()
+    private var _mealplans = ArrayList<MealPlan>()
     lateinit var adapter: RecipeAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -127,6 +130,7 @@ class MainFragment: Fragment(){
         private var imgRecipeThumbnail : ImageView = itemView.findViewById(R.id.imgRecipe)
         private var lblRecipeInfo: TextView = itemView.findViewById(R.id.lblRecipeInfo)
         private var btnViewRecipe: Button = itemView.findViewById(R.id.btnViewRecipe)
+        private var btnAddRecipe: Button = itemView.findViewById(R.id.btnAddRecipe)
 
 
 
@@ -135,6 +139,9 @@ class MainFragment: Fragment(){
                 openDetails(recipe)
             }
 
+            btnAddRecipe.setOnClickListener{
+                _mealplans.add(MealPlan(LocalDateTime.now(), recipe.recipeID, "local", 1))
+            }
             lblRecipeInfo.text = recipe.toString()
             Picasso.get().load(recipe.recipeImageUrl).into(imgRecipeThumbnail)
         }

@@ -82,6 +82,10 @@ class MainFragment: Fragment(){
         btnSchedule.setOnClickListener{
             (activity as MainActivity?)!!.openMealPlans()
         }
+
+        btnShoppingList.setOnClickListener{
+            (activity as MainActivity?)!!.openShoppingList()
+        }
     }
 
     inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {

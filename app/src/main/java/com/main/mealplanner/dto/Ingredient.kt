@@ -4,4 +4,8 @@ data class Ingredient(var nearStore: String, var quantity: String?, var name: St
     override fun toString(): String {
         return "$name: $quantity"
     }
+
+    fun shoppingListString(recipeName: String): String{
+        return "$quantity for $recipeName"
+    }
 }

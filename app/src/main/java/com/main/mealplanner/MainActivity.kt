@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
 import com.main.mealplanner.UI.MealPlanFragment
+import com.main.mealplanner.UI.ShoppingListFragment
+import kotlinx.android.synthetic.main.shoppinglist_fragment.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +35,12 @@ class MainActivity : AppCompatActivity() {
     fun openMealPlans(){
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MealPlanFragment.newInstance())
+                .addToBackStack("tag")
+                .commit()
+    }
+    fun openShoppingList(){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, ShoppingListFragment.newInstance())
                 .addToBackStack("tag")
                 .commit()
     }

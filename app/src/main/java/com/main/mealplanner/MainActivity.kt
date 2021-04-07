@@ -1,7 +1,13 @@
 package com.main.mealplanner
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
 import com.main.mealplanner.UI.MealPlanFragment
@@ -11,10 +17,12 @@ import kotlinx.android.synthetic.main.shoppinglist_fragment.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainFragment: MainFragment
+    private var notificationManager: NotificationManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainFragment = MainFragment.newInstance()
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         mainFragment = MainFragment.newInstance()
         if (savedInstanceState == null) {

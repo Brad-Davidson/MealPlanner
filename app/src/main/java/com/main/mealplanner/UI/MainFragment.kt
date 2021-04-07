@@ -1,5 +1,6 @@
 package com.main.mealplanner.UI
 
+import android.app.Notification
 import android.content.DialogInterface
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -18,12 +19,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import com.main.mealplanner.MainActivity
 import com.main.mealplanner.MealPlanViewModel
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
+import com.main.mealplanner.service.NotificationService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.rowlayout.*
@@ -81,6 +84,13 @@ class MainFragment: Fragment(){
 
         btnSchedule.setOnClickListener{
             (activity as MainActivity?)!!.openMealPlans()
+        }
+
+        btnCatagories.setOnClickListener{
+            val notificationService = NotificationService(context!!)
+            notificationService.createNotificationChannel(context!!, NotificationManagerCompat.IMPORTANCE_DEFAULT, false, getString(R.string.app_name), "App notification channel.")
+            notificationService.createNotification("Test", "test", false)
+
         }
 
         btnShoppingList.setOnClickListener{

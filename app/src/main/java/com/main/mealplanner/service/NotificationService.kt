@@ -1,52 +1,77 @@
 package com.main.mealplanner.service
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.work.Worker
+import androidx.work.WorkerParameters
 import com.main.mealplanner.MainActivity
 import com.main.mealplanner.R
+import java.util.*
 
-class NotificationService{
-    private lateinit var appContext: Context
-    constructor(context: Context){
-        appContext = context
+class NotificationService (var context: Context, var params: WorkerParameters) : Worker(context, params){
+    override fun doWork(): Result {
+        val data = params.inputData
+        val title = "Title"
+        val body = data.getString("body")
+
+        if (body != null) {
+            TriggerNotification(context, title, body)
+        }
+
+        return Result.success()
     }
-    fun createNotificationChannel(context: Context, importance: Int, showBadge: Boolean, name: String, description: String) {
+
+}
+
+class TriggerNotification(context: Context, title: String, body: String){
+    init{
+        sendNotification(context, title, body)
+    }
+
+    private fun createNotificationChannel(context: Context, name: String, description: String): String {
+        val chanelId = UUID.randomUUID().toString()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            // 2
-            val channelId = "${context.packageName}-$name"
-            val channel = NotificationChannel(channelId, name, importance)
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(chanelId, name, importance)
+            channel.enableLights(true)
+            channel.enableVibration(true)
             channel.description = description
-            channel.setShowBadge(showBadge)
+            channel.lightColor = Color.BLUE
+            channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
 
-            // 3
             val notificationManager = context.getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
+            notificationManager?.createNotificationChannel(channel)
         }
+
+        return chanelId
     }
 
-    fun createNotification(title: String, message: String, autoCancel: Boolean){
-        val channelId = "${appContext.packageName}-${appContext.getString(R.string.app_name)}"
-        val notificationBuilder = NotificationCompat.Builder(appContext, channelId).apply {
-            setSmallIcon(android.R.drawable.ic_dialog_alert) // 3
-            setContentTitle(title) // 4
-            setContentText(message) // 5
-            priority = NotificationCompat.PRIORITY_DEFAULT // 7
-            setAutoCancel(autoCancel) // 8
+    private fun sendNotification(context: Context, title: String, body: String) {
 
-            val intent = Intent(appContext, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val notificationManager = NotificationManagerCompat.from(context)
+        val mBuilder = NotificationCompat.Builder(context, createNotificationChannel(context, title, body))
+        val notificationId = (System.currentTimeMillis() and 0xfffffff).toInt()
 
-            val pendingIntent = PendingIntent.getActivity(appContext, 0, intent, 0)
-            setContentIntent(pendingIntent)
-        }
-        val notificationManager = NotificationManagerCompat.from(appContext)
-        notificationManager.notify(1001, notificationBuilder.build())
+        mBuilder.setDefaults(Notification.DEFAULT_ALL)
+                .setTicker("Hearty365")
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setSmallIcon(R.drawable.common_full_open_on_phone)
+                .setContentInfo("Content Info")
+                .setAutoCancel(true)
+
+        notificationManager.notify(notificationId, mBuilder.build())
     }
+
 }

@@ -24,6 +24,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.Constraints
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.main.mealplanner.*
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
@@ -33,6 +37,7 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.rowlayout.*
 import java.time.LocalDateTime
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainFragment: Fragment(){
     companion object {
@@ -88,17 +93,27 @@ class MainFragment: Fragment(){
         }
 
         btnCatagories.setOnClickListener{
-            val intent = Intent(context!!, NotificationReceiver::class.java)
-            intent.putExtra("Notification Text", "someText")
-            val pendingIntent = PendingIntent.getBroadcast(context!!, 1234, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-            val alarmMgr = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, 10000, pendingIntent)
+            scheduleNotification(10, "hello", "hello")
+            scheduleNotification(10, "1234", "hello there, you have a meal")
 
+            WorkManager.getInstance().cancelAllWorkByTag("1234")
         }
 
         btnShoppingList.setOnClickListener{
             (activity as MainActivity?)!!.openShoppingList()
         }
+    }
+    fun scheduleNotification(timeDelay: Long, tag: String, body: String) {
+
+        val data = Data.Builder().putString("body", body)
+
+        val work = OneTimeWorkRequestBuilder<NotificationService>()
+            .setInitialDelay(timeDelay, TimeUnit.SECONDS)
+            .setInputData(data.build())
+            .addTag(tag)
+            .build()
+
+        WorkManager.getInstance().enqueue(work)
     }
 
     inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {

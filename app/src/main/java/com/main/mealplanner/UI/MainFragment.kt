@@ -1,7 +1,11 @@
 package com.main.mealplanner.UI
 
+import android.app.AlarmManager
 import android.app.Notification
+import android.app.PendingIntent
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +17,6 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,9 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
-import com.main.mealplanner.MainActivity
-import com.main.mealplanner.MealPlanViewModel
-import com.main.mealplanner.R
+import com.main.mealplanner.*
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
 import com.main.mealplanner.service.NotificationService
@@ -54,7 +55,7 @@ class MainFragment: Fragment(){
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         mealPlanModel = ViewModelProvider(requireActivity()).get(MealPlanViewModel::class.java)
-        viewModel.fetchAllRecipes()
+        //viewModel.fetchAllRecipes()
         lstRecipes.hasFixedSize()
         lstRecipes.layoutManager = LinearLayoutManager(context)
         lstRecipes.itemAnimator = DefaultItemAnimator()
@@ -87,9 +88,11 @@ class MainFragment: Fragment(){
         }
 
         btnCatagories.setOnClickListener{
-            val notificationService = NotificationService(context!!)
-            notificationService.createNotificationChannel(context!!, NotificationManagerCompat.IMPORTANCE_DEFAULT, false, getString(R.string.app_name), "App notification channel.")
-            notificationService.createNotification("Test", "test", false)
+            val intent = Intent(context!!, NotificationReceiver::class.java)
+            intent.putExtra("Notification Text", "someText")
+            val pendingIntent = PendingIntent.getBroadcast(context!!, 1234, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val alarmMgr = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, 10000, pendingIntent)
 
         }
 

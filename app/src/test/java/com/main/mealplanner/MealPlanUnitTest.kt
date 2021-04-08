@@ -17,19 +17,19 @@ class MealPlanUnitTest {
 
     @Test
     fun confirmMealPlan_outputsPlan(){
-        var mealPlan = MealPlan(LocalDateTime.of(2000, 1, 1, 0, 0), "1", "Brad", 1 )
+        var mealPlan = MealPlan(LocalDateTime.of(2000, 1, 1, 0, 0), "1", "Brad", "1" )
         Assert.assertEquals("Cook Recipe #1 at 2000-01-01T00:00", mealPlan.toString())
     }
 
     @Test(expected = InvalidParameterException::class)
     fun confirmMealPlan_setInvalidTime(){
-        var mealPlan = MealPlan( LocalDateTime.now(), "1", "Brad", 1 )
+        var mealPlan = MealPlan( LocalDateTime.now(), "1", "Brad", "1" )
         mealPlan.setTime(LocalDateTime.of(2000, 1, 1, 0, 0))
     }
 
     @Test
     fun confirmMealPlan_setTime(){
-        var mealPlan = MealPlan( LocalDateTime.now(), "1", "Brad", 1 )
+        var mealPlan = MealPlan( LocalDateTime.now(), "1", "Brad", "1" )
         mealPlan.setTime(LocalDateTime.of(2030, 1, 1, 0, 0))
     }
 

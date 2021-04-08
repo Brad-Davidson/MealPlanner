@@ -181,7 +181,7 @@ class MainFragment: Fragment(){
             }
 
             btnAddRecipe.setOnClickListener{
-                //mealPlanModel.addMeal(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", ""))
+                mealPlanModel.addMeal(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", ""))
                 mealPlanModel.save(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", ""))
             }
             lblRecipeInfo.text = recipe.toString()

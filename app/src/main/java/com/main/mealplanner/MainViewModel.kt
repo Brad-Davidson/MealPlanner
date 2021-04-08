@@ -1,5 +1,6 @@
 package com.main.mealplanner
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,39 +17,12 @@ class MainViewModel : ViewModel() {
 
     var recipes: MutableLiveData<ArrayList<RecipeHeader>> = MutableLiveData()
     var recipeService: RecipeService = RecipeService()
-    lateinit var firestore : FirebaseFirestore
-    var storageReferenence = FirebaseStorage.getInstance().getReference()
-    var mealplans : MutableLiveData<ArrayList<MealPlan>> = MutableLiveData<ArrayList<MealPlan>>()
-    var mealplan = MealPlan()
     
     init {
-            firestore = FirebaseFirestore.getInstance()
-            firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
-            listenToRecipes()
-            listenToMealPlans()
-    }
-    
-    private fun listenToRecipes() {
-        fetchAllRecipes()
+            fetchAllRecipes()
     }
 
-    fun save(
-        mealplan: MealPlan,
-        user: FirebaseUser
-    ) {
-        val document =
-            if (mealplan.mealplanId != null && !mealplan.mealplanId.isEmpty()) {
-                // updating existing
-                firestore.collection("mealplans").document(mealplan.mealplanId)
-            } else {
-                // create new
-                firestore.collection("mealplans").document()
-            }
-        mealplan.mealplanId = document.id
-        val set = document.set(mealplan)
-            set.addOnSuccessListener {
-                Log.d("Firebase", "document saved")
-    }
+
 
     fun fetchAllRecipes(){
         recipes = recipeService.fetchRecipeHeaders()

@@ -166,8 +166,8 @@ class MainFragment: Fragment(){
             }
 
             btnAddRecipe.setOnClickListener{
-                mealPlanModel.addMeal(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", 1))
-
+                //mealPlanModel.addMeal(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", ""))
+                mealPlanModel.save(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", ""))
             }
             lblRecipeInfo.text = recipe.toString()
             Picasso.get().load(recipe.recipeImageUrl).into(imgRecipeThumbnail)

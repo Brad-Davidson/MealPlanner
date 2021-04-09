@@ -21,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.main.mealplanner.MainActivity
 import com.main.mealplanner.MealPlanViewModel
 import com.main.mealplanner.R
@@ -43,7 +46,9 @@ class MainFragment: Fragment(){
     private var _recipes = ArrayList<RecipeHeader>() //this is a copy of the full data set
     private var _filteredRecipes = ArrayList<RecipeHeader>()
     private var _mealplans = ArrayList<MealPlan>()
+    private val AUTH_REQUEST_CODE = 2002
     lateinit var adapter: RecipeAdapter
+    private var user : FirebaseUser? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -91,11 +96,25 @@ class MainFragment: Fragment(){
             notificationService.createNotificationChannel(context!!, NotificationManagerCompat.IMPORTANCE_DEFAULT, false, getString(R.string.app_name), "App notification channel.")
             notificationService.createNotification("Test", "test", false)
 
+            logon()
+
         }
 
         btnShoppingList.setOnClickListener{
             (activity as MainActivity?)!!.openShoppingList()
         }
+    }
+
+    private fun logon() {
+        var providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build()
+        )
+        startActivityForResult(
+            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), AUTH_REQUEST_CODE
+        )
+
+        if(user == null)
+            FirebaseAuth.getInstance().currentUser
     }
 
     inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {

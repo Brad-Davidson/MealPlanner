@@ -1,11 +1,7 @@
 package com.main.mealplanner.UI
 
-import android.app.AlarmManager
 import android.app.Notification
-import android.app.PendingIntent
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
@@ -17,18 +13,21 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
+import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.work.Constraints
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import com.main.mealplanner.*
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.main.mealplanner.MainActivity
+import com.main.mealplanner.MealPlanViewModel
+import com.main.mealplanner.R
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
 import com.main.mealplanner.service.NotificationService
@@ -37,7 +36,6 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.rowlayout.*
 import java.time.LocalDateTime
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class MainFragment: Fragment(){
     companion object {
@@ -49,6 +47,7 @@ class MainFragment: Fragment(){
     private var _recipes = ArrayList<RecipeHeader>() //this is a copy of the full data set
     private var _filteredRecipes = ArrayList<RecipeHeader>()
     private var _mealplans = ArrayList<MealPlan>()
+    private val AUTH_REQUEST_CODE = 2002
     lateinit var adapter: RecipeAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +59,7 @@ class MainFragment: Fragment(){
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         mealPlanModel = ViewModelProvider(requireActivity()).get(MealPlanViewModel::class.java)
-        //viewModel.fetchAllRecipes()
+        viewModel.fetchAllRecipes()
         lstRecipes.hasFixedSize()
         lstRecipes.layoutManager = LinearLayoutManager(context)
         lstRecipes.itemAnimator = DefaultItemAnimator()
@@ -93,27 +92,32 @@ class MainFragment: Fragment(){
         }
 
         btnCatagories.setOnClickListener{
-            scheduleNotification(10, "hello", "hello")
-            scheduleNotification(10, "1234", "hello there, you have a meal")
+            val notificationService = NotificationService(context!!)
+            notificationService.createNotificationChannel(context!!, NotificationManagerCompat.IMPORTANCE_DEFAULT, false, getString(R.string.app_name), "App notification channel.")
+            notificationService.createNotification("Test", "test", false)
 
-            WorkManager.getInstance().cancelAllWorkByTag("1234")
+            if(viewModel.user == null)
+                viewModel.user = logon()
+
+
         }
 
         btnShoppingList.setOnClickListener{
             (activity as MainActivity?)!!.openShoppingList()
         }
     }
-    fun scheduleNotification(timeDelay: Long, tag: String, body: String) {
 
-        val data = Data.Builder().putString("body", body)
+    private fun logon(): FirebaseUser? {
+        var providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build()
+        )
+        startActivityForResult(
+            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), AUTH_REQUEST_CODE
+        )
 
-        val work = OneTimeWorkRequestBuilder<NotificationService>()
-            .setInitialDelay(timeDelay, TimeUnit.SECONDS)
-            .setInputData(data.build())
-            .addTag(tag)
-            .build()
+        viewModel.user = FirebaseAuth.getInstance().currentUser
 
-        WorkManager.getInstance().enqueue(work)
+        return viewModel.user
     }
 
     inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {
@@ -181,8 +185,8 @@ class MainFragment: Fragment(){
             }
 
             btnAddRecipe.setOnClickListener{
-                mealPlanModel.addMeal(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", ""))
-                mealPlanModel.save(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", ""))
+                mealPlanModel.addMeal(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", 1))
+
             }
             lblRecipeInfo.text = recipe.toString()
             Picasso.get().load(recipe.recipeImageUrl).into(imgRecipeThumbnail)

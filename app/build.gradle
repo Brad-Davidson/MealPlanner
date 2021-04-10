@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-firestore:22.1.2'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    implementation 'com.google.firebase:firebase-auth-ktx'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'

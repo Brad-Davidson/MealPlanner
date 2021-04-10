@@ -1,33 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/lblRecipeInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="1"
-        android:textSize="18dp"/>
+ <TextView
+     android:id="@+id/lblRecipeName"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <DatePicker
         android:id="@+id/datePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:calendarViewShown="false"
         android:datePickerMode="spinner" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
     </LinearLayout>
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="Delete">
-</Button>
-
 
 </androidx.cardview.widget.CardView>

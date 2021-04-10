@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.main.mealplanner.MainActivity
 
@@ -17,7 +19,9 @@ import com.main.mealplanner.R
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.*
+import kotlinx.android.synthetic.main.mealplanlayout.*
 import java.time.LocalDateTime
 import java.util.*
 

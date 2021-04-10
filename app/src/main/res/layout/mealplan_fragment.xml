@@ -14,27 +14,19 @@
     android:outlineAmbientShadowColor="@color/black"
     tools:context=".UI.MealPlanFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lstMealPlan"
+        android:layout_width="405dp"
+        android:layout_height="629dp"
+        />
+
     <ListView
         android:id="@+id/lstMealPlans"
         android:layout_width="413dp"
         android:layout_height="662dp"
         android:layout_marginTop="68dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:calendarViewShown="false"
-            android:datePickerMode="spinner" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </LinearLayout>
-    </ListView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -46,4 +38,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>

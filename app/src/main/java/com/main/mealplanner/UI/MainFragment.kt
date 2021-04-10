@@ -34,6 +34,7 @@ import com.main.mealplanner.service.NotificationService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.rowlayout.*
+import okhttp3.internal.wait
 import java.time.LocalDateTime
 import java.util.*
 
@@ -91,23 +92,12 @@ class MainFragment: Fragment(){
             (activity as MainActivity?)!!.openMealPlans()
         }
 
-        btnCatagories.setOnClickListener{
-            val notificationService = NotificationService(context!!)
-            notificationService.createNotificationChannel(context!!, NotificationManagerCompat.IMPORTANCE_DEFAULT, false, getString(R.string.app_name), "App notification channel.")
-            notificationService.createNotification("Test", "test", false)
-
-            if(viewModel.user == null)
-                viewModel.user = logon()
-
-
-        }
-
         btnShoppingList.setOnClickListener{
             (activity as MainActivity?)!!.openShoppingList()
         }
     }
 
-    private fun logon(): FirebaseUser? {
+    private fun logon(mealPlan: MealPlan): FirebaseUser? {
         var providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build()
         )
@@ -115,9 +105,13 @@ class MainFragment: Fragment(){
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), AUTH_REQUEST_CODE
         )
 
-        viewModel.user = FirebaseAuth.getInstance().currentUser
+        val user = FirebaseAuth.getInstance().currentUser
+        mealPlan.OwnerEmail = user.email
+        if(mealPlan.OwnerEmail != null){
+            mealPlanModel.save(mealPlan)
+        }
 
-        return viewModel.user
+        return user
     }
 
     inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {
@@ -185,7 +179,13 @@ class MainFragment: Fragment(){
             }
 
             btnAddRecipe.setOnClickListener{
-                mealPlanModel.addMeal(MealPlan(LocalDateTime.now(), recipe.recipeID, "Local", 1))
+
+                if(viewModel.user == null){
+                    viewModel.user = logon(MealPlan(LocalDateTime.now(), recipe.recipeID, "", ""))
+                }
+                else if(viewModel.user != null){
+                    mealPlanModel.save(MealPlan(LocalDateTime.now(), recipe.recipeID, viewModel.user!!.email, ""))
+                }
 
             }
             lblRecipeInfo.text = recipe.toString()

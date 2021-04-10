@@ -45,7 +45,7 @@ class MealPlanViewModel : ViewModel(){
             mealplans.value = ArrayList<MealPlan>()
             return
         }
-        val document = firestore.collection("mealplans")
+        val document = firestore.collection("mealplans").whereEqualTo("ownerEmail", email)
         document.get()
             .addOnSuccessListener {
                 doc ->

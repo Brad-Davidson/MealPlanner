@@ -10,16 +10,16 @@
     android:backgroundTint="@color/white"
     app:cardCornerRadius="10dp"
     android:outlineAmbientShadowColor="@color/black">
- <TextView
+
+    <TextView
      android:id="@+id/lblRecipeName"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
-     android:layout_marginBottom="10dp"
-     android:layout_marginTop="50dp"
-    />
+        android:layout_marginLeft="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp">
 
     <DatePicker
         android:id="@+id/datePicker"
@@ -44,13 +44,14 @@
             android:layout_marginLeft="-55dp"
             android:layout_marginTop="-30dp"
             android:layout_marginRight="-50dp"
-            android:layout_marginBottom="-30dp" />
+            android:layout_marginBottom="-30dp"
+            />
         <Button
             android:id="@+id/btnDelete"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:text="Delete"
-            android:textSize="6dp"/>
+            android:textSize="6dp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

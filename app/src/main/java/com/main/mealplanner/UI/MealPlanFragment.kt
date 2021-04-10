@@ -33,6 +33,7 @@ class MealPlanFragment: Fragment(){
 
     private lateinit var mealPlanViewModel: MealPlanViewModel
     private lateinit var viewModel: MainViewModel
+    lateinit var adapter: MealPlanFragment.MealPlanAdapter
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -50,11 +51,16 @@ class MealPlanFragment: Fragment(){
         else{
             mealPlanViewModel.getMealPlans("")
         }
-        mealPlanViewModel.mealplans.observe(viewLifecycleOwner, Observer{
-            mealplans ->
-            lstMealPlans.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, mealplans)
-        })
 
+        lstMealPlan.hasFixedSize()
+        lstMealPlan.layoutManager = LinearLayoutManager(context)
+        lstMealPlan.itemAnimator = DefaultItemAnimator()
+        adapter =MealPlanAdapter(R.layout.mealplanlayout)
+        lstMealPlan.adapter = adapter
+        mealPlanViewModel.mealplans.observe(this, Observer{
+            mealplans ->
+            lstMealPlan.adapter!!.notifyDataSetChanged()
+        })
     }
 
     inner class MealPlanAdapter(val itemLayout: Int) : RecyclerView.Adapter<MealPlanViewHolder>(){

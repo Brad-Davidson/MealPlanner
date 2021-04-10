@@ -20,13 +20,7 @@
         android:layout_height="629dp"
         />
 
-    <ListView
-        android:id="@+id/lstMealPlans"
-        android:layout_width="413dp"
-        android:layout_height="662dp"
-        android:layout_marginTop="68dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/textView"

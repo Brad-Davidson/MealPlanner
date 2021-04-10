@@ -29,7 +29,6 @@ open class DetailsFragment: Fragment(){
             val fragment = DetailsFragment()
             fragment.arguments = bundle
 
-            //this absolutely need to be removed and the call become asynchronous. however, unit tests don't work with async call, please advice
             var policy =  StrictMode.ThreadPolicy.Builder().permitAll().build()
 
             StrictMode.setThreadPolicy(policy)

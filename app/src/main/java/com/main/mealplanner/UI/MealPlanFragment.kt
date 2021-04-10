@@ -1,6 +1,7 @@
 package com.main.mealplanner.UI
 
 import android.os.Bundle
+import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.main.mealplanner.MealPlanViewModel
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
+import com.main.mealplanner.service.RecipeService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.*
@@ -28,7 +30,13 @@ import java.util.*
 
 class MealPlanFragment: Fragment(){
     companion object {
-        fun newInstance() = MealPlanFragment()
+        fun newInstance(): MealPlanFragment{
+            val fragment = MealPlanFragment()
+            var policy =  StrictMode.ThreadPolicy.Builder().permitAll().build()
+
+            StrictMode.setThreadPolicy(policy)
+            return fragment
+        }
     }
 
     private lateinit var mealPlanViewModel: MealPlanViewModel
@@ -95,11 +103,15 @@ class MealPlanFragment: Fragment(){
     }
 
     inner class MealPlanViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-
+        private var lblRecipeName : TextView = itemView.findViewById(R.id.lblRecipeName)
+        private var datePicker: DatePicker = itemView.findViewById(R.id.datePicker)
 
 
         fun updateMealPlans (mealPlan : MealPlan) {
-
+            var recipeDetails = mealPlan.RecipeId?.let { it -> viewModel.fetchRecipe(it).firstOrNull() }
+            if (recipeDetails != null) {
+                lblRecipeName.text = recipeDetails.name
+            }
         }
 
     }

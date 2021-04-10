@@ -1,30 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:layout_margin="4dp"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="10dp"
+    android:outlineAmbientShadowColor="@color/black">
  <TextView
      android:id="@+id/lblRecipeName"
      android:layout_width="match_parent"
-     android:layout_height="match_parent"/>
+     android:layout_height="match_parent"
+     android:layout_marginBottom="10dp"
+     android:layout_marginTop="50dp"
+    />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <TimePicker
+
+    <DatePicker
         android:id="@+id/datePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
-        android:scaleY="0.95"
-        android:scaleX="0.95"
+        android:layout_height="105dp"
+        android:layout_width="wrap_content"
+        android:scaleX="0.60"
+        android:scaleY="0.60"
+        android:layout_marginLeft="-50dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginRight="-50dp"
+        android:layout_marginBottom="-30dp"
         />
+        <TimePicker
+            android:id="@+id/time_picker"
+            android:layout_width="wrap_content"
+            android:timePickerMode="spinner"
+            android:layout_height="105dp"
+            android:scaleX="0.60"
+            android:scaleY="0.60"
+            android:layout_marginLeft="-55dp"
+            android:layout_marginTop="-30dp"
+            android:layout_marginRight="-50dp"
+            android:layout_marginBottom="-30dp" />
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:text="Delete"
+            android:textSize="6dp"/>
     </LinearLayout>
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="delete"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="80dp"/>
-
 
 </androidx.cardview.widget.CardView>

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -48,7 +49,6 @@ class MainFragment: Fragment(){
     private var _mealplans = ArrayList<MealPlan>()
     private val AUTH_REQUEST_CODE = 2002
     lateinit var adapter: RecipeAdapter
-    private var user : FirebaseUser? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -96,7 +96,9 @@ class MainFragment: Fragment(){
             notificationService.createNotificationChannel(context!!, NotificationManagerCompat.IMPORTANCE_DEFAULT, false, getString(R.string.app_name), "App notification channel.")
             notificationService.createNotification("Test", "test", false)
 
-            logon()
+            if(viewModel.user == null)
+                viewModel.user = logon()
+
 
         }
 
@@ -105,7 +107,7 @@ class MainFragment: Fragment(){
         }
     }
 
-    private fun logon() {
+    private fun logon(): FirebaseUser? {
         var providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build()
         )
@@ -113,8 +115,9 @@ class MainFragment: Fragment(){
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), AUTH_REQUEST_CODE
         )
 
-        if(user == null)
-            FirebaseAuth.getInstance().currentUser
+        viewModel.user = FirebaseAuth.getInstance().currentUser
+
+        return viewModel.user
     }
 
     inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {

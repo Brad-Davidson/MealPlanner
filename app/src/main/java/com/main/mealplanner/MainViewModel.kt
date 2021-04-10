@@ -3,6 +3,7 @@ package com.main.mealplanner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeDetails
@@ -14,6 +15,7 @@ class MainViewModel : ViewModel() {
 
     var recipes: MutableLiveData<ArrayList<RecipeHeader>> = MutableLiveData()
     var recipeService: RecipeService = RecipeService()
+    var user : FirebaseUser? = null
     lateinit var firestore : FirebaseFirestore
     
     init {

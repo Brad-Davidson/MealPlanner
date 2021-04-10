@@ -58,7 +58,7 @@ class ShoppingListFragment: Fragment(){
                 var ingredientList = HashMap<String, ArrayList<String>>()
 
                 meals.forEach{
-                        var recipeDetails = viewModel.fetchRecipe(it.RecipeId).firstOrNull()
+                        var recipeDetails = it.RecipeId?.let { it1 -> viewModel.fetchRecipe(it1).firstOrNull() }
                         if(recipeDetails != null){
                                 var recipeIngredients = recipeDetails.getIngredients()
                                 for (ingredient in recipeIngredients) {

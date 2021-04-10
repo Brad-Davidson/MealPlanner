@@ -4,12 +4,17 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.security.InvalidParameterException
+import java.security.acl.Owner
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
-@Entity(tableName="mealplan")
-data class MealPlan(var CookSchedule: LocalDateTime, var RecipeId : String, var OwnerEmail : String, @PrimaryKey @SerializedName("id") var MealPlanId:String) {
+data class MealPlan(var CookSchedule: LocalDateTime? = LocalDateTime.now()
+                    , var RecipeId : String? = ""
+                    , var OwnerEmail : String? = ""
+                    ,  var MealPlanId:String? = "") {
+    constructor(): this(LocalDateTime.now(), "", "", ""){
+    }
     override fun toString(): String {
         return "Cook Recipe #$RecipeId at $CookSchedule"
     }

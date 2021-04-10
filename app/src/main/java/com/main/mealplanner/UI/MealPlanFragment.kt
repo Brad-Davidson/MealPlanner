@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.main.mealplanner.MainActivity
+import com.main.mealplanner.MainViewModel
 
 import com.main.mealplanner.MealPlanViewModel
 import com.main.mealplanner.R
@@ -31,6 +32,7 @@ class MealPlanFragment: Fragment(){
     }
 
     private lateinit var mealPlanViewModel: MealPlanViewModel
+    private lateinit var viewModel: MainViewModel
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -40,6 +42,14 @@ class MealPlanFragment: Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mealPlanViewModel = ViewModelProvider(requireActivity()).get(MealPlanViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
+        if(viewModel.user != null){
+            mealPlanViewModel.getMealPlans(viewModel.user!!.email)
+        }
+        else{
+            mealPlanViewModel.getMealPlans("")
+        }
         mealPlanViewModel.mealplans.observe(viewLifecycleOwner, Observer{
             mealplans ->
             lstMealPlans.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, mealplans)

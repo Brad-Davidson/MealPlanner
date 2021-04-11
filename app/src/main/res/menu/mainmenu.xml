@@ -7,4 +7,16 @@
     app:showAsAction="always"
     android:visible="true"
     android:icon="@drawable/ic_logout"/>
+    <item android:title="Shopping list"
+        android:id="@+id/btnShoppingListHeader"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:visible="true"
+        android:icon="@drawable/ic_shopping_list"/>
+    <item android:title="Schedule"
+        android:id="@+id/btnScheduleHeader"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:visible="true"
+        android:icon="@drawable/ic_schedule"/>
 </menu>

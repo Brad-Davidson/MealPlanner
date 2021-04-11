@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container,mainFragment)
                 .commitNow()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        getMenuInflater().inflate(R.menu.mainmenu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun openRecipeDetails(recipeID: String){

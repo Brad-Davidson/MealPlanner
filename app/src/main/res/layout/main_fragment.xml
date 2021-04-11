@@ -29,17 +29,7 @@
 
 
 
-        <Button
-            android:id="@+id/btnCatagories"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="105dp"
-            android:text="Catagories"
-            android:textSize="9dp"
-            app:layout_constraintStart_toEndOf="@+id/btnShoppingList"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
         <Button
             android:id="@+id/btnSchedule"

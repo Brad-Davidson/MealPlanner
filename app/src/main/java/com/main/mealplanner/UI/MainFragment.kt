@@ -88,13 +88,6 @@ class MainFragment: Fragment(){
         })
 
 
-        btnSchedule.setOnClickListener{
-            (activity as MainActivity?)!!.openMealPlans()
-        }
-
-        btnShoppingList.setOnClickListener{
-            (activity as MainActivity?)!!.openShoppingList()
-        }
     }
 
     private fun logon(mealPlan: MealPlan): FirebaseUser? {

@@ -8,6 +8,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
@@ -36,6 +37,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.mainmenu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.logoutbutton){
+
+        }
+        if(item.itemId == R.id.btnShoppingListHeader){
+            openShoppingList()
+        }
+        if(item.itemId == R.id.btnScheduleHeader){
+            openMealPlans()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun openRecipeDetails(recipeID: String){

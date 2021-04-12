@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         if(item.itemId == R.id.btnScheduleHeader){
             openMealPlans()
         }
+        if(item.itemId == R.id.btnHome){
+            openHomePage()
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -69,6 +72,12 @@ class MainActivity : AppCompatActivity() {
     fun openShoppingList(){
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, ShoppingListFragment.newInstance())
+                .addToBackStack("tag")
+                .commit()
+    }
+    fun openHomePage(){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment.newInstance())
                 .addToBackStack("tag")
                 .commit()
     }

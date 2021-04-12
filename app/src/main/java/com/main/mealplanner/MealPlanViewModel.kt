@@ -61,8 +61,9 @@ class MealPlanViewModel : ViewModel(){
                         mealPlans.add(mealPlan)
                     }
                     mealplans.postValue(mealPlans)
-
                 }
+
+
             }
     }
 }

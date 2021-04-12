@@ -161,8 +161,8 @@ class MainFragment: Fragment(){
     inner class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         private var imgRecipeThumbnail : ImageView = itemView.findViewById(R.id.imgRecipe)
         private var lblRecipeInfo: TextView = itemView.findViewById(R.id.lblRecipeInfo)
-        private var btnViewRecipe: Button = itemView.findViewById(R.id.btnViewRecipe)
-        private var btnAddRecipe: Button = itemView.findViewById(R.id.btnAddRecipe)
+        private var btnViewRecipe: ImageButton = itemView.findViewById(R.id.btnViewRecipe)
+        private var btnAddRecipe: ImageButton = itemView.findViewById(R.id.btnAddRecipe)
 
 
 

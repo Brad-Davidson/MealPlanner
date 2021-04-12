@@ -12,7 +12,7 @@
             android:id="@+id/rcpSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="41dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:hint="Select a recipe"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,8 +33,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center_horizontal"
-            android:text="Showing:    Recipes"
+            android:text="Recipes"
+            android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/lstRecipes"
             app:layout_constraintStart_toStartOf="parent" />
 

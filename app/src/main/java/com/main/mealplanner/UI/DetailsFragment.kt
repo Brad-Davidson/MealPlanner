@@ -2,6 +2,7 @@ package com.main.mealplanner.UI
 
 import android.os.Bundle
 import android.os.StrictMode
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ open class DetailsFragment: Fragment(){
         }
     }
 
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -52,6 +54,7 @@ open class DetailsFragment: Fragment(){
         recipeDtl = arguments?.getString("recipe_id")?.let { viewModel.fetchRecipe(it).first() }!!
         txtTitle?.text = recipeDtl?.name
         txtInstructions?.text = recipeDtl?.instructions
+        txtInstructions.movementMethod = ScrollingMovementMethod.getInstance()
         lstIngredients.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipeDtl?.getIngredients())
 
         Picasso.get().load(recipeDtl.recipeImageUrl).into(imgRecipe)

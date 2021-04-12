@@ -27,6 +27,7 @@ import com.main.mealplanner.service.RecipeService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.*
+import kotlinx.android.synthetic.main.mealplan_fragment.view.*
 import kotlinx.android.synthetic.main.mealplanlayout.*
 import java.time.LocalDateTime
 import java.util.*
@@ -75,6 +76,7 @@ class MealPlanFragment: Fragment(){
         })
     }
 
+
     inner class MealPlanAdapter(val itemLayout: Int) : RecyclerView.Adapter<MealPlanViewHolder>(){
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealPlanViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(itemLayout, parent, false)
@@ -122,6 +124,8 @@ class MealPlanFragment: Fragment(){
     inner class MealPlanViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         private var lblRecipeName : TextView = itemView.findViewById(R.id.lblRecipeName)
         private var datePicker: DatePicker = itemView.findViewById(R.id.datePicker)
+        private var timePicker: TimePicker = itemView.findViewById(R.id.time_picker)
+        private var btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
 
 
         fun updateMealPlans (mealPlan : MealPlan) {
@@ -129,9 +133,12 @@ class MealPlanFragment: Fragment(){
             if (recipeDetails != null) {
                 lblRecipeName.text = recipeDetails.name
             }
+
+            }
+
         }
 
     }
 
-}
+
 

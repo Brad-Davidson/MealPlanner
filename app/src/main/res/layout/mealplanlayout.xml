@@ -46,12 +46,14 @@
             android:layout_marginRight="-50dp"
             android:layout_marginBottom="-30dp"
             />
-        <Button
+        <ImageButton
             android:id="@+id/btnDelete"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:text="Delete"
-            android:textSize="6dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_delete"
+            android:background="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

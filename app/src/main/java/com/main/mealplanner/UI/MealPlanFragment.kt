@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.main.mealplanner.MainActivity
 import com.main.mealplanner.MainViewModel
+import android.app.Notification
+import androidx.work.*
 
 import com.main.mealplanner.MealPlanViewModel
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
+import com.main.mealplanner.service.NotificationService
 import com.main.mealplanner.service.RecipeService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -27,6 +30,7 @@ import kotlinx.android.synthetic.main.mealplan_fragment.*
 import kotlinx.android.synthetic.main.mealplanlayout.*
 import java.time.LocalDateTime
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MealPlanFragment: Fragment(){
     companion object {
@@ -97,6 +101,19 @@ class MealPlanFragment: Fragment(){
             if (mealPlan != null) {
                 holder.updateMealPlans(mealPlan)
             }
+        }
+
+        fun scheduleNotification(timeDelay: Long, tag: String, body: String) {
+
+            val data = Data.Builder().putString("body", body)
+
+            val work = OneTimeWorkRequestBuilder<NotificationService>()
+                    .setInitialDelay(timeDelay, TimeUnit.SECONDS)
+                    .setInputData(data.build())
+                    .addTag(tag)
+                    .build()
+
+            WorkManager.getInstance().enqueue(work)
         }
 
 

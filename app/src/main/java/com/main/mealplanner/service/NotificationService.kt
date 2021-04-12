@@ -62,7 +62,7 @@ class TriggerNotification(context: Context, title: String, body: String){
         val notificationId = (System.currentTimeMillis() and 0xfffffff).toInt()
 
         mBuilder.setDefaults(Notification.DEFAULT_ALL)
-                .setTicker("Hearty365")
+                .setTicker("MealPlanner")
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))

@@ -46,6 +46,12 @@ class ShoppingListFragment: Fragment(){
                 super.onActivityCreated(savedInstanceState)
                 mealPlanViewModel = ViewModelProvider(requireActivity()).get(MealPlanViewModel::class.java)
                 viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+                if(viewModel.user != null){
+                        mealPlanViewModel.getMealPlans(viewModel.user!!.email)
+                }
+                else{
+                        mealPlanViewModel.getMealPlans("")
+                }
                 mealPlanViewModel.mealplans.observe(viewLifecycleOwner, Observer { mealplans ->
                         val expandableShoppingList = getShoppingList(mealplans)
                         lstShoppingList?.setAdapter(ExpandableListAdapter(context!!, ArrayList(expandableShoppingList.keys), expandableShoppingList))

@@ -1,5 +1,6 @@
 package com.main.mealplanner.UI
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.os.StrictMode
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.main.mealplanner.MainActivity
 import com.main.mealplanner.MainViewModel
 import android.app.Notification
+import android.app.TimePickerDialog
 import androidx.fragment.app.DialogFragment
 import androidx.work.*
 
@@ -123,7 +125,7 @@ class MealPlanFragment: Fragment(){
 
     }
 
-    inner class MealPlanViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class MealPlanViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         private var lblRecipeName : TextView = itemView.findViewById(R.id.lblRecipeName)
         private var btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
         private var btnOpenTimePicker: Button = itemView.findViewById(R.id.btnOpenTimePicker)
@@ -132,13 +134,34 @@ class MealPlanFragment: Fragment(){
             var recipeDetails = mealPlan.RecipeId?.let { it -> viewModel.fetchRecipe(it).firstOrNull() }
             if (recipeDetails != null) {
                 lblRecipeName.text = recipeDetails.name
+                btnOpenTimePicker.text = mealPlan.CookSchedule.toString()
+            }
+
+            btnOpenTimePicker.setOnClickListener{
+                val currentDateTime = Calendar.getInstance()
+                val startYear = currentDateTime.get(Calendar.YEAR)
+                val startMonth = currentDateTime.get(Calendar.MONTH)
+                val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+                val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
+                val startMinute = currentDateTime.get(Calendar.MINUTE)
+                DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                    TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                        val pickedDateTime = Calendar.getInstance()
+                        pickedDateTime.set(year, month, day, hour, minute)
+                        var mealTime = LocalDateTime.ofInstant(pickedDateTime.toInstant(), pickedDateTime.timeZone.toZoneId())
+                        mealPlan.setTime(mealTime)
+                        btnOpenTimePicker.text = mealTime.toString()
+                    }, startHour, startMinute, false).show()
+                }, startYear, startMonth, startDay).show()
             }
 
             }
 
-        }
+
 
     }
+
+}
 
 
 

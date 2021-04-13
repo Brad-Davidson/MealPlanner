@@ -18,38 +18,15 @@ import kotlinx.android.synthetic.main.shoppinglist_fragment.*
 import java.text.DateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var mainFragment: MainFragment
     private var notificationManager: NotificationManager? = null
-    lateinit var textView: TextView
-    lateinit var button: Button
-    var day = 0
-    var month: Int = 0
-    var year: Int = 0
-    var hour: Int = 0
-    var minute: Int = 0
-    var myDay = 0
-    var myMonth: Int = 0
-    var myYear: Int = 0
-    var myHour: Int = 0
-    var myMinute: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         mainFragment = MainFragment.newInstance()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainFragment = MainFragment.newInstance()
-        textView = findViewById(R.id.textView)
-        button = findViewById(R.id.btnPick)
-        button.setOnClickListener {
-            val calendar: Calendar = Calendar.getInstance()
-            day = calendar.get(Calendar.DAY_OF_MONTH)
-            month = calendar.get(Calendar.MONTH)
-            year = calendar.get(Calendar.YEAR)
-            val datePickerDialog =
-                    DatePickerDialog(this@MainActivity, this@MainActivity, year, month,day)
-            datePickerDialog.show()
-        }
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container,mainFragment)
@@ -87,10 +64,12 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     }
 
     fun openMealPlans(){
+
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MealPlanFragment.newInstance())
                 .addToBackStack("tag")
                 .commit()
+
     }
     fun openShoppingList(){
         supportFragmentManager.beginTransaction()
@@ -103,22 +82,6 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
                 .replace(R.id.container, MainFragment.newInstance())
                 .addToBackStack("tag")
                 .commit()
-    }
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        myDay = day
-        myYear = year
-        myMonth = month
-        val calendar: Calendar = Calendar.getInstance()
-        hour = calendar.get(Calendar.HOUR)
-        minute = calendar.get(Calendar.MINUTE)
-        val timePickerDialog = TimePickerDialog(this@MainActivity, this@MainActivity, hour, minute,
-                DateFormat.is24HourFormat(this))
-        timePickerDialog.show()
-    }
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        myHour = hourOfDay
-        myMinute = minute
-        textView.text = "Year: " + myYear + "\n" + "Month: " + myMonth + "\n" + "Day: " + myDay + "\n" + "Hour: " + myHour + "\n" + "Minute: " + myMinute
     }
 }
 

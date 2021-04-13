@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.main.mealplanner.MainActivity
 import com.main.mealplanner.MainViewModel
 import android.app.Notification
+import androidx.fragment.app.DialogFragment
 import androidx.work.*
 
 import com.main.mealplanner.MealPlanViewModel
@@ -47,6 +48,7 @@ class MealPlanFragment: Fragment(){
     private lateinit var mealPlanViewModel: MealPlanViewModel
     private lateinit var viewModel: MainViewModel
     lateinit var adapter: MealPlanFragment.MealPlanAdapter
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -123,10 +125,8 @@ class MealPlanFragment: Fragment(){
 
     inner class MealPlanViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         private var lblRecipeName : TextView = itemView.findViewById(R.id.lblRecipeName)
-        private var datePicker: DatePicker = itemView.findViewById(R.id.datePicker)
-        private var timePicker: TimePicker = itemView.findViewById(R.id.time_picker)
         private var btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
-
+        private var btnOpenTimePicker: Button = itemView.findViewById(R.id.btnOpenTimePicker)
 
         fun updateMealPlans (mealPlan : MealPlan) {
             var recipeDetails = mealPlan.RecipeId?.let { it -> viewModel.fetchRecipe(it).firstOrNull() }

@@ -35,14 +35,15 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        app:srcCompat="@android:drawable/progress_indeterminate_horizontal" />
+        app:srcCompat="@android:drawable/progress_indeterminate_horizontal"
+        android:clickable="true"/>
 
     <ImageButton
 
         android:id="@+id/btnViewRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="340dp"
+        android:layout_marginLeft="300dp"
         android:layout_marginTop="55dp"
         android:layout_marginBottom="15dp"
         app:srcCompat="@drawable/ic_more"
@@ -52,7 +53,7 @@
     <ImageButton
 
         android:id="@+id/btnAddRecipe"
-        android:layout_marginLeft="300dp"
+        android:layout_marginLeft="340dp"
         android:layout_marginTop="55dp"
         android:layout_marginBottom="15dp"
         android:clickable="true"

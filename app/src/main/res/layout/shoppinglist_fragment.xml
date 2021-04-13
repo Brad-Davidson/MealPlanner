@@ -5,13 +5,21 @@
     android:id="@+id/shoppinglist_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.ShoppingListFragment">
+    tools:context=".UI.ShoppingListFragment"
+    android:clickable="true"
+    android:layout_margin="4dp"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="10dp"
+    android:outlineAmbientShadowColor="@color/black">
 
     <ExpandableListView
         android:id="@+id/lstShoppingList"
         android:layout_width="404dp"
         android:layout_height="603dp"
         android:layout_marginTop="68dp"
+        android:layout_marginLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,9 +27,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="23dp"
         android:text="Shopping List"
+        android:textStyle="bold"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

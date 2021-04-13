@@ -185,7 +185,7 @@ class MainFragment: Fragment(){
             Picasso.get().load(recipe.recipeImageUrl).into(imgRecipeThumbnail)
         }
 
-        private fun openDetails(recipe: RecipeHeader){
+         fun openDetails(recipe: RecipeHeader){
             (activity as MainActivity?)!!.openRecipeDetails(recipe.recipeID)
         }
 

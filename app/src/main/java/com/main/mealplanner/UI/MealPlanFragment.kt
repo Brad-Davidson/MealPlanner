@@ -32,7 +32,9 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.view.*
 import kotlinx.android.synthetic.main.mealplanlayout.*
+import java.text.DateFormat
 import java.time.LocalDateTime
+import java.time.Year
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -129,12 +131,15 @@ class MealPlanFragment: Fragment(){
         private var lblRecipeName : TextView = itemView.findViewById(R.id.lblRecipeName)
         private var btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
         private var btnOpenTimePicker: Button = itemView.findViewById(R.id.btnOpenTimePicker)
+        private var textView: TextView = itemView.findViewById(R.id.textView)
+        private var btnViewRecipe: ImageButton = itemView.findViewById(R.id.btnViewRecipe)
 
         fun updateMealPlans (mealPlan : MealPlan) {
             var recipeDetails = mealPlan.RecipeId?.let { it -> viewModel.fetchRecipe(it).firstOrNull() }
             if (recipeDetails != null) {
                 lblRecipeName.text = recipeDetails.name
-                btnOpenTimePicker.text = mealPlan.CookSchedule.toString()
+                textView.text = mealPlan.CookSchedule.toString()
+
             }
 
             btnOpenTimePicker.setOnClickListener{
@@ -150,7 +155,7 @@ class MealPlanFragment: Fragment(){
                         pickedDateTime.set(year, month, day, hour, minute)
                         var mealTime = LocalDateTime.ofInstant(pickedDateTime.toInstant(), pickedDateTime.timeZone.toZoneId())
                         mealPlan.setTime(mealTime)
-                        btnOpenTimePicker.text = mealTime.toString()
+                        textView.text = mealTime.toString()
                     }, startHour, startMinute, false).show()
                 }, startYear, startMonth, startDay).show()
             }

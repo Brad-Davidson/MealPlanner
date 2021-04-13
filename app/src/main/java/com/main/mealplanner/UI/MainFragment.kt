@@ -188,6 +188,7 @@ class MainFragment: Fragment(){
         private fun openDetails(recipe: RecipeHeader){
             (activity as MainActivity?)!!.openRecipeDetails(recipe.recipeID)
         }
+
     }
 }
 

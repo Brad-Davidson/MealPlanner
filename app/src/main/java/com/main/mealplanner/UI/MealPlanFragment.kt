@@ -19,6 +19,7 @@ import com.main.mealplanner.MainViewModel
 import android.app.Notification
 import android.app.TimePickerDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.work.*
 
 import com.main.mealplanner.MealPlanViewModel
@@ -32,6 +33,7 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.view.*
 import kotlinx.android.synthetic.main.mealplanlayout.*
+import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.time.LocalDateTime
 import java.time.Year
@@ -135,11 +137,12 @@ class MealPlanFragment: Fragment(){
         private var btnViewRecipe: ImageButton = itemView.findViewById(R.id.btnViewRecipe)
 
         fun updateMealPlans (mealPlan : MealPlan) {
-            var recipeDetails = mealPlan.RecipeId?.let { it -> viewModel.fetchRecipe(it).firstOrNull() }
-            if (recipeDetails != null) {
-                lblRecipeName.text = recipeDetails.name
-                textView.text = mealPlan.CookSchedule.toString()
-
+            lifecycleScope.launch{
+                var recipeDetails = mealPlan.RecipeId?.let { it -> viewModel.fetchRecipe(it) }
+                if (recipeDetails != null) {
+                    lblRecipeName.text = recipeDetails.name
+                    btnOpenTimePicker.text = mealPlan.CookSchedule.toString()
+                }
             }
 
             btnOpenTimePicker.setOnClickListener{
@@ -155,7 +158,7 @@ class MealPlanFragment: Fragment(){
                         pickedDateTime.set(year, month, day, hour, minute)
                         var mealTime = LocalDateTime.ofInstant(pickedDateTime.toInstant(), pickedDateTime.timeZone.toZoneId())
                         mealPlan.setTime(mealTime)
-                        textView.text = mealTime.toString()
+                        btnOpenTimePicker.text = mealTime.toString()
                     }, startHour, startMinute, false).show()
                 }, startYear, startMonth, startDay).show()
             }

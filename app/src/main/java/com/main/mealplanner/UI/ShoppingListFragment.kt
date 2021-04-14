@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.main.mealplanner.MainViewModel
 
 import com.main.mealplanner.MealPlanViewModel
@@ -20,6 +21,7 @@ import com.main.mealplanner.dto.Ingredient
 import com.main.mealplanner.dto.MealPlan
 import kotlinx.android.synthetic.main.mealplan_fragment.*
 import kotlinx.android.synthetic.main.shoppinglist_fragment.*
+import kotlinx.coroutines.launch
 
 class ShoppingListFragment: Fragment(){
         companion object {
@@ -35,6 +37,7 @@ class ShoppingListFragment: Fragment(){
 
         private lateinit var mealPlanViewModel: MealPlanViewModel
         private lateinit var viewModel: MainViewModel
+        private var ingredientList = HashMap<String, ArrayList<String>>()
 
         override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,17 +56,19 @@ class ShoppingListFragment: Fragment(){
                         mealPlanViewModel.getMealPlans("")
                 }
                 mealPlanViewModel.mealplans.observe(viewLifecycleOwner, Observer { mealplans ->
-                        val expandableShoppingList = getShoppingList(mealplans)
-                        lstShoppingList?.setAdapter(ExpandableListAdapter(context!!, ArrayList(expandableShoppingList.keys), expandableShoppingList))
+                        viewLifecycleOwner.lifecycleScope.launch{
+                                getShoppingList(mealplans)
+                                lstShoppingList?.setAdapter(ExpandableListAdapter(context!!, ArrayList(ingredientList.keys), ingredientList))
+                        }
+
                })
 
         }
 
-        fun getShoppingList(meals: ArrayList<MealPlan>): HashMap<String, ArrayList<String>>{
-                var ingredientList = HashMap<String, ArrayList<String>>()
+        suspend fun getShoppingList(meals: ArrayList<MealPlan>){
 
                 meals.forEach{
-                        var recipeDetails = it.RecipeId?.let { it1 -> viewModel.fetchRecipe(it1).firstOrNull() }
+                        var recipeDetails = it.RecipeId?.let { it1 -> viewModel.fetchRecipe(it1) }
                         if(recipeDetails != null){
                                 var recipeIngredients = recipeDetails.getIngredients()
                                 for (ingredient in recipeIngredients) {
@@ -80,8 +85,6 @@ class ShoppingListFragment: Fragment(){
 
                         }
                 }
-
-                return ingredientList
         }
 
         /*

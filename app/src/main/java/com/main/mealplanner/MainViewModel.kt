@@ -35,7 +35,7 @@ class MainViewModel : ViewModel() {
     }
     //This is a synchronous call. Ideally, this would be asynchronous and hooked up to mutable live data, HOWEVER with the usage of this method as is (a helper function used within multiple fragment methods)
     //I have no idea how to make this a coroutine while keeping it able to be called inline
-    fun fetchRecipe(recipeID: String): ArrayList<RecipeDetails> {
+    suspend fun fetchRecipe(recipeID: String): RecipeDetails {
         return recipeService.fetchRecipeDetails(recipeID)
     }
 

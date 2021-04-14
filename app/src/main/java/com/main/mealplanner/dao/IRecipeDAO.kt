@@ -17,12 +17,4 @@ interface IRecipeDAO {
     @GET("lookup.php")
     fun getRecipeDetails(@Query("i") i: String): Call<RecipeDetailList>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(recipeHeaders: ArrayList<RecipeHeader>)
-
-    @Delete
-    fun delete(recipeHeader: RecipeHeader)
-
-    @Insert
-    fun save(recipeHeader: RecipeHeader)
 }

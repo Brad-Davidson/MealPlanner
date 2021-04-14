@@ -11,6 +11,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.TaskStackBuilder
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.main.mealplanner.MainActivity
@@ -20,7 +21,7 @@ import java.util.*
 class NotificationService (var context: Context, var params: WorkerParameters) : Worker(context, params){
     override fun doWork(): Result {
         val data = params.inputData
-        val title = "Title"
+        val title = "MealPlan Notification"
         val body = data.getString("body")
 
         if (body != null) {
@@ -61,6 +62,12 @@ class TriggerNotification(context: Context, title: String, body: String){
         val mBuilder = NotificationCompat.Builder(context, createNotificationChannel(context, title, body))
         val notificationId = (System.currentTimeMillis() and 0xfffffff).toInt()
 
+        val resultIntent = Intent(context, MainActivity::class.java)
+        val pendingIntent = TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(resultIntent)
+            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+
         mBuilder.setDefaults(Notification.DEFAULT_ALL)
                 .setTicker("MealPlanner")
                 .setContentTitle(title)
@@ -68,7 +75,8 @@ class TriggerNotification(context: Context, title: String, body: String){
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setSmallIcon(R.drawable.common_full_open_on_phone)
-                .setContentInfo("Content Info")
+                .setContentInfo("App Notification")
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
 
         notificationManager.notify(notificationId, mBuilder.build())

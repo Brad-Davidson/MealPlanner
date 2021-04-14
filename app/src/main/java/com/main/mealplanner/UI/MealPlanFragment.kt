@@ -34,9 +34,11 @@ import kotlinx.android.synthetic.main.mealplan_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.view.*
 import kotlinx.android.synthetic.main.mealplanlayout.*
 import kotlinx.coroutines.launch
+import java.security.InvalidParameterException
 import java.text.DateFormat
 import java.time.LocalDateTime
 import java.time.Year
+import java.time.temporal.ChronoUnit
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -113,19 +115,6 @@ class MealPlanFragment: Fragment(){
             }
         }
 
-        fun scheduleNotification(timeDelay: Long, tag: String, body: String) {
-
-            val data = Data.Builder().putString("body", body)
-
-            val work = OneTimeWorkRequestBuilder<NotificationService>()
-                    .setInitialDelay(timeDelay, TimeUnit.SECONDS)
-                    .setInputData(data.build())
-                    .addTag(tag)
-                    .build()
-
-            WorkManager.getInstance().enqueue(work)
-        }
-
 
     }
 
@@ -156,14 +145,38 @@ class MealPlanFragment: Fragment(){
                     TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                         val pickedDateTime = Calendar.getInstance()
                         pickedDateTime.set(year, month, day, hour, minute)
+                        pickedDateTime.set(Calendar.SECOND, 0)
                         var mealTime = LocalDateTime.ofInstant(pickedDateTime.toInstant(), pickedDateTime.timeZone.toZoneId())
-                        mealPlan.setTime(mealTime)
-                        btnOpenTimePicker.text = mealTime.toString()
+                        try{
+                            mealPlan.setTime(mealTime)
+                            btnOpenTimePicker.text = mealTime.toString()
+                            var timeDiff = LocalDateTime.from(LocalDateTime.now())
+                            var secondsUntil = timeDiff.until(mealTime, ChronoUnit.SECONDS)
+                            mealPlan.MealPlanId?.let { plan -> scheduleNotification(secondsUntil, plan, "You have a meal scheduled, open your MealPlanner to view details") }
+                        }
+                        catch(e: InvalidParameterException){
+                            Toast.makeText(requireContext(), "Invalid Time, please pick a date + time in the future!", Toast.LENGTH_SHORT).show()
+                        }
+
                     }, startHour, startMinute, false).show()
                 }, startYear, startMonth, startDay).show()
             }
 
             }
+        fun scheduleNotification(timeDelay: Long, tag: String, body: String) {
+
+            val data = Data.Builder().putString("body", body)
+            //cancel any work task for that meal plan
+            WorkManager.getInstance().cancelAllWorkByTag(tag)
+
+            val work = OneTimeWorkRequestBuilder<NotificationService>()
+                    .setInitialDelay(timeDelay, TimeUnit.SECONDS)
+                    .setInputData(data.build())
+                    .addTag(tag)
+                    .build()
+
+            WorkManager.getInstance().enqueue(work)
+        }
 
 
 

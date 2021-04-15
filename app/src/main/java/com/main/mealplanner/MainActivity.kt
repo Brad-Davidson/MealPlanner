@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         //logic for setting click events for the top menu buttons.
         if(item.itemId == R.id.logoutbutton){
             if(FirebaseAuth.getInstance().currentUser != null){
+                Toast.makeText(this, "You have signed out", Toast.LENGTH_LONG).show()
                 FirebaseAuth.getInstance().signOut()
-                Toast.makeText(this, "You have signed out", Toast.LENGTH_LONG)
             }
             else{
                 var providers = arrayListOf(

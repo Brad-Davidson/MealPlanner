@@ -2,6 +2,7 @@ package com.main.mealplanner.UI
 
 import android.app.Activity
 import android.app.Notification
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.ImageDecoder
@@ -195,6 +196,7 @@ class MainFragment: Fragment(){
                 }
                 else if(FirebaseAuth.getInstance().currentUser != null){
                     mealPlanModel.save(MealPlan(null, recipe.recipeID, FirebaseAuth.getInstance().currentUser!!.email, ""))
+                    Toast.makeText(context, "${recipe.name} added to your MealPlan", Toast.LENGTH_SHORT).show()
                 }
 
             }

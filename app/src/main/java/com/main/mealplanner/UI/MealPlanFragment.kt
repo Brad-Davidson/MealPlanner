@@ -39,6 +39,7 @@ import java.security.InvalidParameterException
 import java.text.DateFormat
 import java.time.LocalDateTime
 import java.time.Year
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -131,7 +132,7 @@ class MealPlanFragment: Fragment(){
                 if (recipeDetails != null) {
                     lblRecipeName.text = recipeDetails.name
                     if(mealPlan.CookSchedule != null){
-                        btnOpenTimePicker.text = mealPlan.CookSchedule.toString()
+                        btnOpenTimePicker.text = mealPlan.CookSchedule!!.format(DateTimeFormatter.ofPattern("hh:mm:ss a dd/MM/YYYY"))
                     }
 
                 }
@@ -157,7 +158,8 @@ class MealPlanFragment: Fragment(){
                         var mealTime = LocalDateTime.ofInstant(pickedDateTime.toInstant(), pickedDateTime.timeZone.toZoneId())
                         try{
                             mealPlan.setTime(mealTime)
-                            btnOpenTimePicker.text = mealTime.toString()
+                            mealPlanViewModel.save(mealPlan)
+                            btnOpenTimePicker.text = mealTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a dd/MM/YYYY"))
                             var timeDiff = LocalDateTime.from(LocalDateTime.now())
                             var secondsUntil = timeDiff.until(mealTime, ChronoUnit.SECONDS)
                             mealPlan.MealPlanId?.let { plan -> scheduleNotification(secondsUntil, plan, "You have a meal scheduled, open your MealPlanner to view details") }

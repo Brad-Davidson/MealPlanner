@@ -2,6 +2,7 @@ package com.main.mealplanner
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -23,6 +24,16 @@ class MealPlanViewModel : ViewModel(){
     init{
         firestore = FirebaseFirestore.getInstance()
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+    }
+
+    fun delete(mealplan: MealPlan){
+        mealplan.MealPlanId?.let { firestore.collection("mealplans").document(it)
+                .delete()
+                .addOnSuccessListener {
+                    Log.d(TAG, "Meal Plan Successfully deleted")
+                    mealplan.OwnerEmail?.let { email -> getMealPlans(email) }
+                }
+                .addOnFailureListener{Log.d(TAG, "Error deleting mealplan")}}
     }
 
     fun save(

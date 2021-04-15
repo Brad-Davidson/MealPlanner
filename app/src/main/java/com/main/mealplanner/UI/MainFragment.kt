@@ -98,12 +98,13 @@ class MainFragment: Fragment(){
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), AUTH_REQUEST_CODE
         )
 
-        val user = FirebaseAuth.getInstance().currentUser
-        mealPlan.OwnerEmail = user.email
-        if(mealPlan.OwnerEmail != null){
-            mealPlanModel.save(mealPlan)
+        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            mealPlan.OwnerEmail = user.email
+            if(mealPlan.OwnerEmail != null){
+                mealPlanModel.save(mealPlan)
+            }
         }
-
         return user
     }
 

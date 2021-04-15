@@ -134,7 +134,12 @@ class MealPlanFragment: Fragment(){
                     btnOpenTimePicker.text = mealPlan.CookSchedule.toString()
                 }
             }
-
+            btnViewRecipe.setOnClickListener{
+                mealPlan.RecipeId?.let { id -> (activity as MainActivity?)!!.openRecipeDetails(id) }
+            }
+            btnDelete.setOnClickListener{
+                mealPlanViewModel.delete(mealPlan)
+            }
             btnOpenTimePicker.setOnClickListener{
                 val currentDateTime = Calendar.getInstance()
                 val startYear = currentDateTime.get(Calendar.YEAR)

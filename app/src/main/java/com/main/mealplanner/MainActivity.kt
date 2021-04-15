@@ -10,7 +10,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import com.firebase.ui.auth.AuthUI
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
@@ -45,7 +47,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.logoutbutton){
-
+            if(FirebaseAuth.getInstance().currentUser != null){
+                FirebaseAuth.getInstance().signOut()
+            }
+            else{
+                var providers = arrayListOf(
+                    AuthUI.IdpConfig.EmailBuilder().build()
+                )
+                startActivityForResult(
+                    AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), 2002
+                )
+            }
         }
         if(item.itemId == R.id.btnShoppingListHeader){
             openShoppingList()

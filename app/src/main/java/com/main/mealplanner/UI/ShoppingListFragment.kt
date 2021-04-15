@@ -66,9 +66,11 @@ class ShoppingListFragment: Fragment(){
                                 //I am doing this because of concurency errors I was getting.
                                 //While this might be bad practice, I know that from the shopping list page, the mealplans cannot change.
                                 if(continueObserving && mealplans.size > 0){
+                                        pBar.visibility = View.VISIBLE
                                         continueObserving = false
                                         getShoppingList(mealplans)
                                         lstShoppingList?.setAdapter(ExpandableListAdapter(context!!, ArrayList(ingredientList.keys), ingredientList))
+                                        pBar.visibility = View.GONE
                                 }
                         }
 

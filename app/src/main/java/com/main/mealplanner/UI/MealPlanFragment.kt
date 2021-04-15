@@ -75,6 +75,7 @@ class MealPlanFragment: Fragment(){
             mealPlanViewModel.getMealPlans(FirebaseAuth.getInstance().currentUser!!.email)
         }
         else{
+            mealPlanViewModel.mealplans.value =  ArrayList<MealPlan>()
             Toast.makeText(requireActivity(), "You are not logged in, please log in to use the scheduler", Toast.LENGTH_SHORT).show()
         }
 

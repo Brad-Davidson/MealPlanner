@@ -18,9 +18,12 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class RecipeService {
+
+    /*
+    Get a mutable list of recipe headers. this is used for the home screen (contains minimal data about the recipe)
+     */
     fun fetchRecipeHeaders() : MutableLiveData<ArrayList<RecipeHeader>> {
         var _recipes = MutableLiveData<ArrayList<RecipeHeader>>()
-        var _ingredients = MutableLiveData<ArrayList<Ingredient>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IRecipeDAO::class.java)
         val call = service?.getAllRecipes()
         call?.enqueue(object: Callback<RecipeList> {
@@ -51,11 +54,15 @@ class RecipeService {
         return _recipes
     }
 
+    /*
+    Get details for a specific recipe. This runs in the IO thread to avoid locking the app up.
+     */
     suspend fun fetchRecipeDetails(recipeID: String) : RecipeDetails{
         var _recipeDetails = RecipeDetails()
         var service = RetrofitClientInstance.retrofitInstance?.create(IRecipeDAO::class.java)
         var call = service?.getRecipeDetails(recipeID)
-        val res = CompletableDeferred<RecipeDetails>()
+        val result = CompletableDeferred<RecipeDetails>()
+        //launch a coroutine in the IO thread
         CoroutineScope(Dispatchers.IO).launch {
             call?.enqueue(object : Callback<RecipeDetailList> {
                 /**
@@ -72,7 +79,7 @@ class RecipeService {
                     if(response.body()?.meals != null){
                         _recipeDetails = response.body()?.meals!!.first()
                     }
-                    res.complete(_recipeDetails)
+                    result.complete(_recipeDetails) //if the response is good, resolve the deferred value
                 }
 
                 /**
@@ -81,13 +88,13 @@ class RecipeService {
                  */
                 override fun onFailure(call: Call<RecipeDetailList>, t: Throwable) {
                     Log.d("Error, ", t.message.toString())
-                    res.completeExceptionally(t)
+                    result.completeExceptionally(t)
                 }
 
             })
         }
-
-        return res.await()
+        //only return once the results are in.
+        return result.await()
     }
 
 }

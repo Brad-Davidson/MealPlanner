@@ -70,11 +70,12 @@ class MealPlanFragment: Fragment(){
         mealPlanViewModel = ViewModelProvider(requireActivity()).get(MealPlanViewModel::class.java)
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
+        //filter out the meal plans by email. if no email is supplied, no mealplan should be returned
         if(FirebaseAuth.getInstance().currentUser != null){
             mealPlanViewModel.getMealPlans(FirebaseAuth.getInstance().currentUser!!.email)
         }
         else{
-            mealPlanViewModel.getMealPlans("")
+            Toast.makeText(requireActivity(), "You are not logged in, please log in to use the scheduler", Toast.LENGTH_SHORT).show()
         }
 
         lstMealPlan.hasFixedSize()
@@ -132,7 +133,7 @@ class MealPlanFragment: Fragment(){
                 if (recipeDetails != null) {
                     lblRecipeName.text = recipeDetails.name
                     if(mealPlan.CookSchedule != null){
-                        btnOpenTimePicker.text = mealPlan.CookSchedule!!.format(DateTimeFormatter.ofPattern("hh:mm:ss a dd/MM/YYYY"))
+                        btnOpenTimePicker.text = mealPlan.CookSchedule!!.format(DateTimeFormatter.ofPattern("hh:mm a dd/MM/YYYY"))
                     }
 
                 }
@@ -141,8 +142,14 @@ class MealPlanFragment: Fragment(){
                 mealPlan.RecipeId?.let { id -> (activity as MainActivity?)!!.openRecipeDetails(id) }
             }
             btnDelete.setOnClickListener{
+                // cancel all notifications that were planned for that meal plan
+                mealPlan.MealPlanId?.let { id -> WorkManager.getInstance().cancelAllWorkByTag(id) }
                 mealPlanViewModel.delete(mealPlan)
             }
+
+            /*
+            Sets the event for opening a date and time picer dialog.
+             */
             btnOpenTimePicker.setOnClickListener{
                 val currentDateTime = Calendar.getInstance()
                 val startYear = currentDateTime.get(Calendar.YEAR)
@@ -159,9 +166,9 @@ class MealPlanFragment: Fragment(){
                         try{
                             mealPlan.setTime(mealTime)
                             mealPlanViewModel.save(mealPlan)
-                            btnOpenTimePicker.text = mealTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a dd/MM/YYYY"))
+                            btnOpenTimePicker.text = mealTime.format(DateTimeFormatter.ofPattern("hh:mm a dd/MM/YYYY")) //formats the time to be like 12:10 am 4/15/2021
                             var timeDiff = LocalDateTime.from(LocalDateTime.now())
-                            var secondsUntil = timeDiff.until(mealTime, ChronoUnit.SECONDS)
+                            var secondsUntil = timeDiff.until(mealTime, ChronoUnit.SECONDS) //gets the seconds until the notification goes off. This is the only way to use the WorkManager to my knowledge
                             mealPlan.MealPlanId?.let { plan -> scheduleNotification(secondsUntil, plan, "You have a meal scheduled, open your MealPlanner to view details") }
                         }
                         catch(e: InvalidParameterException){

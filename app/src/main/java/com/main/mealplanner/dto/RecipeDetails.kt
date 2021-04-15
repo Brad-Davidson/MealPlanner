@@ -2,7 +2,9 @@ package com.main.mealplanner.dto
 
 import com.google.gson.annotations.SerializedName
 
-
+/*
+A detailed description of a recipe and its ingredients
+ */
 data class RecipeDetails(
         @SerializedName("idMeal") val recipeID: String? = null
         , @SerializedName("strArea") val area: String? = null
@@ -61,7 +63,9 @@ data class RecipeDetails(
         override fun toString(): String {
         return "Recipe Name: $name, Recipe Category: $category"
     }
-
+        /*
+        Aggregate the ingredients to make managing on the front end much easier.
+         */
         fun getIngredients(): ArrayList<Ingredient>{
                 var ingredients = ArrayList<Ingredient>()
 

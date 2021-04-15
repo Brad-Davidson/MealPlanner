@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        //logic for setting click events for the top menu buttons.
         if(item.itemId == R.id.logoutbutton){
             if(FirebaseAuth.getInstance().currentUser != null){
                 FirebaseAuth.getInstance().signOut()
@@ -71,6 +73,10 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /*
+    navigate to the details fragment.
+    This fragment shows the ingredients and instrutions of a recipe
+     */
     fun openRecipeDetails(recipeID: String){
         var detailsFragment = DetailsFragment.newInstance(recipeID)
         supportFragmentManager.beginTransaction()
@@ -79,6 +85,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
+    /*
+    navigate to the meal plan scheduler fragment.
+    This fragment is used to schedule meals for a specific time
+     */
     fun openMealPlans(){
 
         supportFragmentManager.beginTransaction()
@@ -87,12 +97,21 @@ class MainActivity : AppCompatActivity() {
                 .commit()
 
     }
+
+    /*
+    opens the shopping list fragment.
+    This fragment shows the ingredients and quantities of those ingredients for all scheduled recipes
+     */
     fun openShoppingList(){
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, ShoppingListFragment.newInstance())
                 .addToBackStack("tag")
                 .commit()
     }
+
+    /*
+    Go back to the home screen
+     */
     fun openHomePage(){
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())

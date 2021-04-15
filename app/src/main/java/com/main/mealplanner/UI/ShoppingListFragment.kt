@@ -50,12 +50,16 @@ class ShoppingListFragment: Fragment(){
                 super.onActivityCreated(savedInstanceState)
                 mealPlanViewModel = ViewModelProvider(requireActivity()).get(MealPlanViewModel::class.java)
                 viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
+                //filter out the meal plans by email. if no email is supplied, no mealplan should be returned
                 if(FirebaseAuth.getInstance().currentUser != null){
                         mealPlanViewModel.getMealPlans(FirebaseAuth.getInstance().currentUser!!.email)
                 }
                 else{
-                        mealPlanViewModel.getMealPlans("")
+                        Toast.makeText(requireActivity(), "You are not logged in, please log in to use the scheduler", Toast.LENGTH_SHORT).show()
                 }
+
+                //observe the mealplans list if it updates, remake the list.
                 mealPlanViewModel.mealplans.observe(viewLifecycleOwner, Observer { mealplans ->
                         viewLifecycleOwner.lifecycleScope.launch{
                                 getShoppingList(mealplans)
@@ -66,13 +70,17 @@ class ShoppingListFragment: Fragment(){
 
         }
 
+        /*
+        Format the list of meals into a hashmap of type HashMap<IngredientName, ArrayList<Ingredients>>.
+         */
         suspend fun getShoppingList(meals: ArrayList<MealPlan>){
-
+                //for each meal, get its recipe's details and parse through the ingredient list.
                 meals.forEach{
                         var recipeDetails = it.RecipeId?.let { it1 -> viewModel.fetchRecipe(it1) }
                         if(recipeDetails != null){
                                 var recipeIngredients = recipeDetails.getIngredients()
                                 for (ingredient in recipeIngredients) {
+                                        //if the ingredient is already in the list, add to the quantity. otherwise, create a key for it.
                                         if(ingredientList.keys.contains(ingredient.name)){
                                                 var shoppingListStr = ingredient.shoppingListString(recipeDetails.name.toString())
                                                 ingredientList.get(ingredient.name)?.add(shoppingListStr)
@@ -80,7 +88,7 @@ class ShoppingListFragment: Fragment(){
                                                 var shoppingListStr = ingredient.shoppingListString(recipeDetails.name.toString())
                                                 var ingredientArray = ArrayList<String>()
                                                 ingredientArray.add(shoppingListStr)
-                                                ingredient.name?.let { it1 -> ingredientList.put(it1, ingredientArray)}
+                                                ingredient.name?.let { ingredientName -> ingredientList.put(ingredientName, ingredientArray)}
                                         }
                                 }
 

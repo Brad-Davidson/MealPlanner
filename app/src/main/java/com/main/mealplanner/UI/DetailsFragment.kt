@@ -54,6 +54,8 @@ open class DetailsFragment: Fragment(){
             viewModel = ViewModelProviders.of(it!!).get(MainViewModel::class.java)
         }
         lifecycleScope.launch{
+
+            //wait for the recipe details. once it is received, fill in everything on the page
             val results = async{recipeDtl = arguments?.getString("recipe_id")?.let { viewModel.fetchRecipe(it) }!!}
             results.await()
             txtTitle?.text = recipeDtl?.name

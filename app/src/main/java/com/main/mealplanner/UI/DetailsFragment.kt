@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 open class DetailsFragment: Fragment(){
     private lateinit var viewModel: MainViewModel
-    private var recipeDtl = RecipeDetails()
+    private var recipeDetails = RecipeDetails()
 
     companion object {
         const val RECIPE_ID = "recipe_id"
@@ -56,14 +56,14 @@ open class DetailsFragment: Fragment(){
         lifecycleScope.launch{
 
             //wait for the recipe details. once it is received, fill in everything on the page
-            val results = async{recipeDtl = arguments?.getString("recipe_id")?.let { viewModel.fetchRecipe(it) }!!}
+            val results = async{recipeDetails = arguments?.getString("recipe_id")?.let { viewModel.fetchRecipe(it) }!!}
             results.await()
-            txtTitle?.text = recipeDtl?.name
-            txtInstructions?.text = recipeDtl?.instructions
+            txtTitle?.text = recipeDetails?.name
+            txtInstructions?.text = recipeDetails?.instructions
             txtInstructions.movementMethod = ScrollingMovementMethod.getInstance()
-            lstIngredients.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipeDtl?.getIngredients())
+            lstIngredients.adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, recipeDetails?.getIngredients())
 
-            Picasso.get().load(recipeDtl.recipeImageUrl).into(imgRecipe)
+            Picasso.get().load(recipeDetails.recipeImageUrl).into(imgRecipe)
         }
 
     }

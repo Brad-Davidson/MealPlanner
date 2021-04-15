@@ -9,7 +9,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
-data class MealPlan(var CookSchedule: LocalDateTime? = LocalDateTime.now()
+data class MealPlan(var CookSchedule: LocalDateTime? = null
                     , var RecipeId : String? = ""
                     , var OwnerEmail : String? = ""
                     ,  var MealPlanId:String? = "") {
@@ -20,7 +20,7 @@ data class MealPlan(var CookSchedule: LocalDateTime? = LocalDateTime.now()
     }
 
     fun setTime(date: LocalDateTime) {
-        val currentDate = LocalDateTime.now()
+        val currentDate = LocalDateTime.now().minusMinutes(1)
         if (date.isBefore(currentDate)){
             throw InvalidParameterException()
         }

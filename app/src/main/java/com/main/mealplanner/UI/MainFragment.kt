@@ -1,7 +1,9 @@
 package com.main.mealplanner.UI
 
+import android.app.Activity
 import android.app.Notification
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
@@ -23,6 +25,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.main.mealplanner.MainActivity
@@ -50,6 +53,7 @@ class MainFragment: Fragment(){
     private var _mealplans = ArrayList<MealPlan>()
     private val AUTH_REQUEST_CODE = 2002
     lateinit var adapter: RecipeAdapter
+    private var pendingMealPlan: MealPlan = MealPlan()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -94,18 +98,30 @@ class MainFragment: Fragment(){
         var providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build()
         )
+        pendingMealPlan = mealPlan
         startActivityForResult(
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), AUTH_REQUEST_CODE
         )
 
         val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            mealPlan.OwnerEmail = user.email
-            if(mealPlan.OwnerEmail != null){
-                mealPlanModel.save(mealPlan)
+        return user
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 2002) {
+            val response = IdpResponse.fromResultIntent(data)
+
+            if (resultCode == Activity.RESULT_OK) {
+                pendingMealPlan.OwnerEmail = FirebaseAuth.getInstance().currentUser.email
+                if(pendingMealPlan.RecipeId != null && pendingMealPlan.RecipeId != ""){
+                    mealPlanModel.save(pendingMealPlan)
+                }
+                pendingMealPlan = MealPlan()
+            } else {
+                Toast.makeText(context!!, "Error signing in", Toast.LENGTH_LONG)
             }
         }
-        return user
     }
 
     inner class RecipeAdapter(val itemLayout: Int) : RecyclerView.Adapter<RecipeViewHolder>(), Filterable {
@@ -178,7 +194,7 @@ class MainFragment: Fragment(){
                     logon(MealPlan(LocalDateTime.now(), recipe.recipeID, "", ""))
                 }
                 else if(FirebaseAuth.getInstance().currentUser != null){
-                    mealPlanModel.save(MealPlan(LocalDateTime.now(), recipe.recipeID, FirebaseAuth.getInstance().currentUser!!.email, ""))
+                    mealPlanModel.save(MealPlan(null, recipe.recipeID, FirebaseAuth.getInstance().currentUser!!.email, ""))
                 }
 
             }

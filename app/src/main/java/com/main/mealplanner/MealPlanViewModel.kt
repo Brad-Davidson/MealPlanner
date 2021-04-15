@@ -53,7 +53,7 @@ class MealPlanViewModel : ViewModel(){
             val mealPlanID = mealplan.MealPlanId
             val ownerEmail = mealplan.OwnerEmail
             val recipeID = mealplan.RecipeId
-            val cookSchedule = mealplan.CookSchedule?.format(DateTimeFormatter.ISO_DATE_TIME)
+            val cookSchedule = if (mealplan.CookSchedule != null) mealplan.CookSchedule?.format(DateTimeFormatter.ISO_DATE_TIME) else  ""
         })
         set.addOnSuccessListener {
             Log.d("Firebase", "document saved")
@@ -77,8 +77,13 @@ class MealPlanViewModel : ViewModel(){
                         var mealPlan = MealPlan()
 
                         var cookTimeStr = d.get("cookSchedule") as? String
-                        var cookTime = LocalDateTime.parse(cookTimeStr, DateTimeFormatter.ISO_DATE_TIME)
-                        mealPlan.CookSchedule = cookTime
+                        if (cookTimeStr == ""){
+                            mealPlan.CookSchedule = null
+                        }
+                        else{
+                            var cookTime = LocalDateTime.parse(cookTimeStr, DateTimeFormatter.ISO_DATE_TIME)
+                            mealPlan.CookSchedule = cookTime
+                        }
                         mealPlan.MealPlanId = d.get("mealPlanID") as? String
                         mealPlan.OwnerEmail = d.get("ownerEmail") as? String
                         mealPlan.RecipeId = d.get("recipeID") as? String
@@ -91,8 +96,5 @@ class MealPlanViewModel : ViewModel(){
             }
     }
 
-    fun getDate(date: HashMap<String, Any>){
-
-    }
 
 }

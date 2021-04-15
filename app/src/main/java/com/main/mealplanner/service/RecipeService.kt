@@ -11,11 +11,7 @@ import android.util.Log
 import com.main.mealplanner.dto.RecipeDetailList
 import com.main.mealplanner.dto.RecipeDetails
 import com.main.mealplanner.dto.RecipeList
-import com.main.mealplanner.dto.Ingredient
 import kotlinx.coroutines.*
-import kotlin.coroutines.coroutineContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class RecipeService {
 

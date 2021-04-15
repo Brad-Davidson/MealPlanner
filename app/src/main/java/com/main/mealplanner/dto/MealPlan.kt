@@ -1,13 +1,7 @@
 package com.main.mealplanner.dto
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import java.security.InvalidParameterException
-import java.security.acl.Owner
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
 
 data class MealPlan(var CookSchedule: LocalDateTime? = null
                     , var RecipeId : String? = ""

@@ -1,26 +1,17 @@
 package com.main.mealplanner
 
-import android.app.*
-import android.content.Context
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.format.DateFormat.is24HourFormat
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
 import com.main.mealplanner.UI.MealPlanFragment
 import com.main.mealplanner.UI.ShoppingListFragment
-import kotlinx.android.synthetic.main.shoppinglist_fragment.*
-import java.text.DateFormat
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 

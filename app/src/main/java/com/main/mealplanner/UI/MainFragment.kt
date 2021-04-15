@@ -1,20 +1,13 @@
 package com.main.mealplanner.UI
 
 import android.app.Activity
-import android.app.Notification
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.ImageDecoder
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.main.mealplanner.MainViewModel
 import androidx.lifecycle.ViewModelProviders
@@ -22,8 +15,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.SearchView
-import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -34,11 +25,8 @@ import com.main.mealplanner.MealPlanViewModel
 import com.main.mealplanner.R
 import com.main.mealplanner.dto.MealPlan
 import com.main.mealplanner.dto.RecipeHeader
-import com.main.mealplanner.service.NotificationService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.rowlayout.*
-import okhttp3.internal.wait
 import java.time.LocalDateTime
 import java.util.*
 

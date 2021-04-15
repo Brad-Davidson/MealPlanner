@@ -34,6 +34,7 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.*
 import kotlinx.android.synthetic.main.mealplan_fragment.view.*
 import kotlinx.android.synthetic.main.mealplanlayout.*
+import kotlinx.android.synthetic.main.shoppinglist_fragment.*
 import kotlinx.coroutines.launch
 import java.security.InvalidParameterException
 import java.text.DateFormat
@@ -83,10 +84,13 @@ class MealPlanFragment: Fragment(){
         lstMealPlan.layoutManager = LinearLayoutManager(context)
         lstMealPlan.itemAnimator = DefaultItemAnimator()
         adapter =MealPlanAdapter(R.layout.mealplanlayout)
+
         lstMealPlan.adapter = adapter
         mealPlanViewModel.mealplans.observe(this, Observer{
             mealplans ->
+            pBarSchedule.visibility = View.VISIBLE
             lstMealPlan.adapter!!.notifyDataSetChanged()
+            pBarSchedule.visibility = View.GONE
         })
     }
 

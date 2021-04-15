@@ -69,7 +69,9 @@ class RecipeService {
                     call: Call<RecipeDetailList>,
                     response: Response<RecipeDetailList>
                 ) {
-                    _recipeDetails = response.body()?.meals!!.first()
+                    if(response.body()?.meals != null){
+                        _recipeDetails = response.body()?.meals!!.first()
+                    }
                     res.complete(_recipeDetails)
                 }
 

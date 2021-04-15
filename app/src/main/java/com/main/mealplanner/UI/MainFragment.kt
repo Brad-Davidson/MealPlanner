@@ -173,11 +173,11 @@ class MainFragment: Fragment(){
 
             btnAddRecipe.setOnClickListener{
 
-                if(viewModel.user == null){
-                    viewModel.user = logon(MealPlan(LocalDateTime.now(), recipe.recipeID, "", ""))
+                if(FirebaseAuth.getInstance().currentUser == null){
+                    logon(MealPlan(LocalDateTime.now(), recipe.recipeID, "", ""))
                 }
-                else if(viewModel.user != null){
-                    mealPlanModel.save(MealPlan(LocalDateTime.now(), recipe.recipeID, viewModel.user!!.email, ""))
+                else if(FirebaseAuth.getInstance().currentUser != null){
+                    mealPlanModel.save(MealPlan(LocalDateTime.now(), recipe.recipeID, FirebaseAuth.getInstance().currentUser!!.email, ""))
                 }
 
             }

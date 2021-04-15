@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:291558815485:android:3a092a4679facca530f094",
+        "mobilesdk_app_id": "1:291558815485:android:a8c842f0ff7766cc30f094",
         "android_client_info": {
-          "package_name": "com.example.com.com.mealplanner"
+          "package_name": "com.main.mealplanner"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "291558815485-3rc8d78vki9lr8ps090rg42k83t0b2fq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.main.mealplanner",
+            "certificate_hash": "ee7bb3f8addfa734221211538b5292b24f5597a0"
+          }
+        },
         {
           "client_id": "291558815485-g3oe2like29too456lfschp7ivbmbsc1.apps.googleusercontent.com",
           "client_type": 3

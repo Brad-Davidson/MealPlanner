@@ -21,6 +21,7 @@ import android.app.TimePickerDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.work.*
+import com.google.firebase.auth.FirebaseAuth
 
 import com.main.mealplanner.MealPlanViewModel
 import com.main.mealplanner.R
@@ -68,8 +69,8 @@ class MealPlanFragment: Fragment(){
         mealPlanViewModel = ViewModelProvider(requireActivity()).get(MealPlanViewModel::class.java)
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
-        if(viewModel.user != null){
-            mealPlanViewModel.getMealPlans(viewModel.user!!.email)
+        if(FirebaseAuth.getInstance().currentUser != null){
+            mealPlanViewModel.getMealPlans(FirebaseAuth.getInstance().currentUser!!.email)
         }
         else{
             mealPlanViewModel.getMealPlans("")

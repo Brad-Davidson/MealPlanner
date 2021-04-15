@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
 import com.main.mealplanner.MainViewModel
 
 import com.main.mealplanner.MealPlanViewModel
@@ -49,8 +50,8 @@ class ShoppingListFragment: Fragment(){
                 super.onActivityCreated(savedInstanceState)
                 mealPlanViewModel = ViewModelProvider(requireActivity()).get(MealPlanViewModel::class.java)
                 viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-                if(viewModel.user != null){
-                        mealPlanViewModel.getMealPlans(viewModel.user!!.email)
+                if(FirebaseAuth.getInstance().currentUser != null){
+                        mealPlanViewModel.getMealPlans(FirebaseAuth.getInstance().currentUser!!.email)
                 }
                 else{
                         mealPlanViewModel.getMealPlans("")

@@ -10,6 +10,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
 import com.main.mealplanner.UI.DetailsFragment
 import com.main.mealplanner.UI.MainFragment
 import com.main.mealplanner.UI.MealPlanFragment
@@ -21,12 +23,14 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainFragment: MainFragment
-    private var notificationManager: NotificationManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainFragment = MainFragment.newInstance()
+        FirebaseApp.initializeApp(this)
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
+        mainFragment = MainFragment.newInstance()
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container,mainFragment)

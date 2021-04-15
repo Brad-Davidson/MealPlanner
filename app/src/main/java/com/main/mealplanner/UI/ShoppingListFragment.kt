@@ -59,11 +59,17 @@ class ShoppingListFragment: Fragment(){
                         Toast.makeText(requireActivity(), "You are not logged in, please log in to use the scheduler", Toast.LENGTH_SHORT).show()
                 }
 
+                var continueObserving = true
                 //observe the mealplans list if it updates, remake the list.
                 mealPlanViewModel.mealplans.observe(viewLifecycleOwner, Observer { mealplans ->
                         viewLifecycleOwner.lifecycleScope.launch{
-                                getShoppingList(mealplans)
-                                lstShoppingList?.setAdapter(ExpandableListAdapter(context!!, ArrayList(ingredientList.keys), ingredientList))
+                                //I am doing this because of concurency errors I was getting.
+                                //While this might be bad practice, I know that from the shopping list page, the mealplans cannot change.
+                                if(continueObserving && mealplans.size > 0){
+                                        continueObserving = false
+                                        getShoppingList(mealplans)
+                                        lstShoppingList?.setAdapter(ExpandableListAdapter(context!!, ArrayList(ingredientList.keys), ingredientList))
+                                }
                         }
 
                })

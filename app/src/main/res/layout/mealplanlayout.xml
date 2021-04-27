@@ -11,14 +11,12 @@
     android:backgroundTint="@color/white"
     app:cardCornerRadius="10dp"
     android:outlineAmbientShadowColor="@color/black"
-    tools:context=".MainActivity">>
-
+    tools:context=".MainActivity">
     <TextView
         android:id="@+id/lblRecipeName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"/>
-
     <Button
         android:id="@+id/btnOpenTimePicker"
         android:layout_width="wrap_content"
@@ -26,39 +24,32 @@
         android:text="Open Time Picker"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"/>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="10dp"
-            android:textColor="@android:color/background_dark"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            />
-
-        <ImageButton
-            android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_delete"
-            android:background="@color/white"
-            android:layout_marginLeft="340dp"
-            android:layout_marginTop="30dp"/>
-        <ImageButton
-
-            android:id="@+id/btnViewRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="340dp"
-            android:layout_marginTop="65dp"
-            android:layout_marginBottom="15dp"
-            app:srcCompat="@drawable/ic_more"
-            android:background="@android:color/white"
-            android:clickable="true" />
-
-
-
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@android:color/background_dark"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_delete"
+        android:background="@color/white"
+        android:layout_marginLeft="340dp"
+        android:layout_marginTop="30dp"/>
+    <ImageButton
+        android:id="@+id/btnViewRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="340dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/ic_more"
+        android:background="@android:color/white"
+        android:clickable="true" />
 </androidx.cardview.widget.CardView>

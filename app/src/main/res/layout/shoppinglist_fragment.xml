@@ -13,10 +13,6 @@
     android:backgroundTint="@color/white"
     app:cardCornerRadius="10dp"
     android:outlineAmbientShadowColor="@color/black">
-
-
-
-
     <ExpandableListView
         android:id="@+id/lstShoppingList"
         android:layout_width="404dp"
@@ -25,8 +21,6 @@
         android:layout_marginLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

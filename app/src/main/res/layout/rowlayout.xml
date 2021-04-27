@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/recipeCardView"
     android:layout_width="380dp"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:layout_margin="4dp"
+    android:layout_margin="6dp"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    android:backgroundTint="@color/white"
-    app:cardCornerRadius="10dp"
-    android:outlineAmbientShadowColor="@color/black"
-    >
+    android:backgroundTint="@color/gray"
+    app:cardCornerRadius="100dp"
+    android:outlineAmbientShadowColor="@color/black">
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -24,43 +24,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="75dp"
-        android:layout_marginTop="5dp"
         android:layout_weight="1"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:layout_gravity="center_vertical"/>
 
     <ImageView
         android:id="@+id/imgRecipe"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
         app:srcCompat="@android:drawable/progress_indeterminate_horizontal"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:foreground="@drawable/rounded_fg"
+        android:layout_gravity="center_vertical"
+        />
 
     <ImageButton
-
         android:id="@+id/btnViewRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
         android:layout_marginTop="55dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
         app:srcCompat="@drawable/ic_more"
-        android:background="@android:color/white"
-        android:clickable="true" />
+        android:background="#eaeded"
+        android:clickable="true"
+        android:layout_gravity="right"
+        />
 
     <ImageButton
-
         android:id="@+id/btnAddRecipe"
         android:layout_marginLeft="340dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="25dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
         android:clickable="true"
         app:srcCompat="@drawable/ic_add"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:background="@color/white"/>
+        android:background="#eaeded"
+        android:layout_gravity="right"/>
 
 
 </androidx.cardview.widget.CardView>

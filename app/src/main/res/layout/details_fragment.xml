@@ -10,13 +10,14 @@
     <ImageView
         android:id="@+id/imgRecipe"
         android:layout_width="214dp"
-        android:layout_height="193dp"
+        android:layout_height="214dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@color/white" />
+        tools:srcCompat="@color/white"
+        android:foreground="@drawable/rounded_fg"/>
 
     <TextView
         android:id="@+id/txtTitle"

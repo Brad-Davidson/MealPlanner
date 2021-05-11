@@ -6,33 +6,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.MainFragment">
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/rcpSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:hint="Select a recipe"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+
+
+                <TextView
+                    android:id="@+id/txtShowing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="monospace"
+                    android:gravity="center_horizontal"
+                    android:text="Recipes"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/lstRecipes"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/rcpSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:hint="Select a recipe"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lstRecipes"
             android:layout_width="405dp"
-            android:layout_height="629dp"
+            android:layout_height="0dp"
             android:layout_marginTop="48dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rcpSearch"/>
-        <TextView
-            android:id="@+id/txtShowing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_horizontal"
-            android:text="Recipes"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/lstRecipes"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/rcpSearch" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
